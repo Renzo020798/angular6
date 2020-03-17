@@ -1,6 +1,5 @@
 
-import {BehaviorSubject, Observable } from 'rxjs';
-import { _throw as throwError } from 'rxjs/observable/throw';
+import {BehaviorSubject, Observable ,  throwError as throwError } from 'rxjs';
 
 import {catchError, map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
