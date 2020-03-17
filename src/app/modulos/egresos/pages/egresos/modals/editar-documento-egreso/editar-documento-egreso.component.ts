@@ -18,9 +18,9 @@ import { ClienteService } from '../../../../../../services/cliente/cliente.servi
 export class EditarDocumentoEgresoComponent implements OnInit {
   @Input() objDocEgresoOriginal;
   @Input() id_egreso;id_empresa;
-  @ViewChild('IGV') IGV: ElementRef;
-  @ViewChild('PERC') PERC: ElementRef;
-  @ViewChild('DETRACC') DETRACC: ElementRef;
+  @ViewChild('IGV', {static: false}) IGV: ElementRef;
+  @ViewChild('PERC', {static: false}) PERC: ElementRef;
+  @ViewChild('DETRACC', {static: false}) DETRACC: ElementRef;
 
   constructor(    private modalService: NgbModal,
     public activemodal : NgbActiveModal,

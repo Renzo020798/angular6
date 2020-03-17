@@ -19,7 +19,7 @@ import { CentroCostosService } from '../../../../services/ModulosService/centro-
 })
 export class EntradasComponent implements OnInit {
 
-  @ViewChild('UpCircle') UpCircle: ElementRef;
+  @ViewChild('UpCircle', {static: false}) UpCircle: ElementRef;
   expanded: boolean = false;
   valNivel1: boolean = false;
   valNivel2: boolean = true;

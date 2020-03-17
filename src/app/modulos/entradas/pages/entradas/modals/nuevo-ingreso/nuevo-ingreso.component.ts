@@ -25,9 +25,9 @@ import { ClienteService } from '../../../../../../services/cliente/cliente.servi
 export class NuevoIngresoComponent implements OnInit {
  
 @Input() cuenta;
-@ViewChild('IGV') IGV: ElementRef;
- @ViewChild('PERC') PERC: ElementRef;
- @ViewChild('DETRACC') DETRACC: ElementRef;
+@ViewChild('IGV', {static: false}) IGV: ElementRef;
+ @ViewChild('PERC', {static: false}) PERC: ElementRef;
+ @ViewChild('DETRACC', {static: false}) DETRACC: ElementRef;
 
   constructor(
     private modalService: NgbModal,

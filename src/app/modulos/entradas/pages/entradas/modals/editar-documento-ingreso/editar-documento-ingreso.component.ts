@@ -19,9 +19,9 @@ export class EditarDocumentoIngresoComponent implements OnInit {
 
   @Input() objDocIngresoOriginal;
   @Input() id_ingreso;id_empresa;
-  @ViewChild('IGV') IGV: ElementRef;
-@ViewChild('PERC') PERC: ElementRef;
-@ViewChild('DETRACC') DETRACC: ElementRef;
+  @ViewChild('IGV', {static: false}) IGV: ElementRef;
+@ViewChild('PERC', {static: false}) PERC: ElementRef;
+@ViewChild('DETRACC', {static: false}) DETRACC: ElementRef;
   total_pagado: number;
 
   constructor(    private modalService: NgbModal,

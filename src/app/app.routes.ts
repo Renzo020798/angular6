@@ -15,23 +15,23 @@ const appRoutes: Routes = [
         path: '',
         component: PagesComponent,
         canActivate: [ LoginGuardGuard ],
-        loadChildren: './modulos/dashboard/pages.module#PagesModule'
+        loadChildren: () => import('./modulos/dashboard/pages.module').then(m => m.PagesModule)
     },
     {
         path: '',
         component: SeguridadComponent,
         canActivate: [ LoginGuardGuard ],
-        loadChildren: './modulos/administracion/seguridad.module#SeguridadModule'
+        loadChildren: () => import('./modulos/administracion/seguridad.module').then(m => m.SeguridadModule)
     },
     {
         path: '',
         component: EntradasComponent,
-        loadChildren: './modulos/entradas/entradas.module#EntradasModule'
+        loadChildren: () => import('./modulos/entradas/entradas.module').then(m => m.EntradasModule)
     },
     {
         path: '',
         component: EgresosComponent,
-        loadChildren: './modulos/egresos/egresos.module#EgresosModule'
+        loadChildren: () => import('./modulos/egresos/egresos.module').then(m => m.EgresosModule)
     }
 ];
 

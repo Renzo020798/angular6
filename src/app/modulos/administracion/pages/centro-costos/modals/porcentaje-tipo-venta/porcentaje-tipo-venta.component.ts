@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
 export class PorcentajeTipoVentaComponent implements OnInit {
 
   @Input() objs;
-  @ViewChild('Porcentaje') campoNumerico: ElementRef;
+  @ViewChild('Porcentaje', {static: false}) campoNumerico : ElementRef;
   
   constructor(
     public activemodal : NgbActiveModal,
