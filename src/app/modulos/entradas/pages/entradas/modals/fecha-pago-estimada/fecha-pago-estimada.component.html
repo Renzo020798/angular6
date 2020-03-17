@@ -1,0 +1,46 @@
+<div class="modal-header" style="justify-content: center;border-bottom: 1px solid #ffffff !important;">
+    <h5 class="modal-title" style="font-size: 15px; font-weight: bold;">FECHA ESTIMADA</h5>
+</div>
+<div class="modal-body">
+    <div class="col-12" style="padding: 15px; border: 1px solid #c3c3c3; border-radius: 10px;">
+
+        <div class="form-group col-3">
+            <i (click)="adicionarFecha()" class="mdi  mdi-plus-circle" style="cursor: pointer; font-size: 35px;color: #17a2b8;margin-left: 25px;"></i>
+        </div>
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tr style="background: #c9e2de;;font-size: 12px;">
+                        <th style=" text-align: center;">Fecha Estimada </th>
+                        <th style=" text-align: center;">Registro </th>
+                        <th style=" text-align: center;">Eliminar </th>
+                    </tr>
+                    <tr *ngFor="let fecha of list_fecha_estimada; let indice = index" style="font: size 12px; text-align: center;">
+                        <td [hidden]="fecha.id_fecha_pago==null?false:true" style="padding: 15px 12px;">
+                            <ejs-datepicker format="dd-MM-yyyy" [ngModel]="fecha.fecha_estimada | date:'dd-MM-yyyy'" [ngModel]="fecha.fecha_estimada" [disabled]="fecha.bloqueado" id='datepicker1' placeholder='Elige una fecha' (ngModelChange)="seteaFecha($event,indice)">
+                            </ejs-datepicker>
+                        </td>
+                        <td [hidden]="fecha.id_fecha_pago==null?true:false" style="padding: 15px 12px;">
+                            <ejs-datepicker format="dd-MM-yyyy" [ngModel]="fecha.fecha_estimada | date:'dd-MM-yyyy'" [ngModel]="fecha.fecha_estimada" [disabled]="true" id='datepicker2' placeholder='Elige una fecha' (ngModelChange)="seteaFecha($event,indice)">
+                            </ejs-datepicker>
+                        </td>
+                        <td [hidden]="fecha.id_fecha_pago==null?false:true" style="padding: 5px 12px;">
+                            <i *ngIf="!fecha.bloqueado" class="mdi mdi-content-save" (click)="guardarFechaEstimada(indice)" aria-hidden="true" style="cursor: pointer; font-size: 25px;"></i>
+                            <i *ngIf="fecha.bloqueado" class="mdi mdi-pencil" (click)="editarFecha(indice)" aria-hidden="true" style="cursor: pointer; font-size: 25px;"></i>
+                        </td>
+                        <td [hidden]="fecha.id_fecha_pago==null?true:false" style="padding: 5px 12px;">
+                        </td>
+                        <td [hidden]="fecha.id_fecha_pago==null?false:true" style="padding: 5px 12px;">
+                            <i class="mdi mdi-delete" (click)="eliminarFecha(indice)" aria-hidden="true" style="cursor: pointer; font-size: 25px;"></i>
+                        </td>
+                        <td [hidden]="fecha.id_fecha_pago==null?true:false" style="padding: 5px 12px;">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer" style="padding: 7px 15px;justify-content: center;border: none;">
+    <i (click)="regresar()" class="mdi mdi-check-all" style="cursor: pointer; font-size: 35px;color: #17a2b8;margin-left: 25px;"></i>
+</div>

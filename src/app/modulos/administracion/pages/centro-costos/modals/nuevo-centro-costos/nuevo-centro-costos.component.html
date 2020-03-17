@@ -1,0 +1,355 @@
+<div class="modal-header" style="justify-content: center;border-bottom: 1px solid #ffffff !important;">
+    <h5 class="modal-title" style="font-size: 15px; font-weight: bold;">{{tituloCentroCosto}}</h5>
+</div>
+<div class="modal-body">
+    <div class="col-12" style="padding: 15px; border: 1px solid #c3c3c3; border-radius: 10px;">
+        <div class="col-12 row" style="margin: 0px; padding: 0px;">
+            <div class="form-group col-6">
+                <label style="font-size: 12px"><span style="color: #467A72; font-weight: bold;">*</span>Nombre :</label>
+                <input class="form-control form-control-sm" type="text" [(ngModel)]="centro_costo.nombre" (ngModelChange)="validarCCCabecera()">
+            </div>
+            <div class="form-group col-6">
+                <label style="font-size: 12px">Descripcion :</label>
+                <input class="form-control form-control-sm" type="text" [(ngModel)]="centro_costo.descripcion">
+            </div>
+        </div>
+        <div class="col-12 row" style="margin: 0px; margin-bottom: 15px; padding: 0px;">
+            <div class="form-group col-6">
+                <label style="font-size: 12px"><span style="color: #467A72; font-weight: bold;">*</span>Niveles :</label>
+                <ng-select [items]="lsNivel" bindLabel="name" bindValue="niveles" placeholder="seleccione" [(ngModel)]="centro_costo.niveles" (ngModelChange)="validarCCCabecera()" (change)="Nivel($event)"></ng-select>
+
+            </div>
+            <div class="form-group col-6">
+                <label style="font-size: 12px">Tipo :</label>
+                <ng-select [items]="lstCentroCostosEmp" bindLabel="tipo_centro_costo.descripcion" bindValue="tipo_centro_costo.id_tipo_centro_costo" [(ngModel)]="centro_costo.id_tipo_centro_costo" (change)="TipoCC($event)" placeholder="seleccione un Tipo" [disabled]="true"></ng-select>
+            </div>
+        </div>
+    </div>
+    <div class="col-12" style="padding: 15px; border: 1px solid #c3c3c3; border-radius: 10px;margin-top: 10px;">
+        <div class="col-12" *ngIf="nivel_name == '1' ? true : false">
+            <div class="table-responsive">
+                <table *ngIf="!tipo_centro_costo.cuenta_consumo" class="table table-bordered">
+                    <tr style="background: #c9e2de;;font-size: 12px;">
+                        <th *ngIf="tipo_centro_costo.cuenta_ingreso" style=" text-align: center;">Cta Ingreso</th>
+                        <th *ngIf="tipo_centro_costo.cuenta_egreso" style=" text-align: center;">Cta Egreso</th>
+                    </tr>
+                    <tr style="font: size 12px; text-align: center;">
+                        <td *ngIf="tipo_centro_costo.cuenta_ingreso" style="padding: 5px 12px;">
+                            <i class="mdi mdi-plus-circle" (click)="NuevoRegsitrarctaCC1('INGRESO')" aria-hidden="true" style="font-size: 250%; cursor: pointer;"></i>
+                        </td>
+                        <td *ngIf="tipo_centro_costo.cuenta_egreso" style="padding: 5px 12px;">
+                            <i class="mdi mdi-plus-circle" (click)="NuevoRegsitrarctaCC1('EGRESO')" aria-hidden="true" style="font-size: 250%; cursor: pointer;"></i>
+                        </td>
+                    </tr>
+                </table>
+                <table *ngIf="tipo_centro_costo.cuenta_consumo" class="table table-bordered">
+                    <tr style="background: #c9e2de;;font-size: 12px;">
+                        <th *ngIf="tipoEmpresa=='P'" style=" text-align: center;">Cta Consumo</th>
+                        <th *ngIf="tipoEmpresa=='S'" style=" text-align: center;">Cta Egreso</th>
+                    </tr>
+                    <tr style="font: size 12px; text-align: center;">
+                        <td *ngIf="tipoEmpresa=='P'" style="padding: 5px 12px;">
+                            <i class="mdi mdi-plus-circle" (click)="NuevoRegsitrarctaCC1('CONSUMO')" aria-hidden="true" style="font-size: 250%; cursor: pointer;"></i>
+                        </td>
+                        <td *ngIf="tipoEmpresa=='S'" style="padding: 5px 12px;">
+                            <i class="mdi mdi-plus-circle" (click)="NuevoRegsitrarctaCC1('EGRESO')" aria-hidden="true" style="font-size: 250%; cursor: pointer;"></i>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+        <nav *ngIf="nivel_name == '1' ? false : true">
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a *ngIf="nivel_name == '2' || nivel_name == '3' || nivel_name == '4' ? true : false" class="nav-item nav-link" id="nav-niv2-tab" data-toggle="tab" href="#nav-niv2" role="tab" aria-controls="nav-niv2" aria-selected="false">Nivel 2</a>
+                <a *ngIf="nivel_name == '3' || nivel_name == '4' ? true : false" class="nav-item nav-link" id="nav-niv3-tab" data-toggle="tab" href="#nav-niv3" role="tab" aria-controls="nav-niv3" aria-selected="false">Nivel 3</a>
+                <a *ngIf="nivel_name == '4' ? true : false" class="nav-item nav-link" id="nav-niv4-tab" data-toggle="tab" href="#nav-niv4" role="tab" aria-controls="nav-niv4" aria-selected="false">Nivel 4</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div *ngIf="nivel_name == '2' || nivel_name == '3' || nivel_name == '4' ? true : false" class="tab-pane fade show active" id="nav-niv2" role="tabpanel" aria-labelledby="nav-niv2-tab">
+                <div class="col-12 row" style="margin: 0px; padding: 0px; margin-top: 20px;">
+                    <div class="form-group col-6">
+                        <label style="font-size: 12px"><span style="color: #467A72; font-weight: bold;">*</span>Nombre :</label>
+                        <input class="form-control form-control-sm" type="text" [(ngModel)]="centro_costo2.nombre" (ngModelChange)="validarCCDetalle1()">
+                    </div>
+                    <div class="form-group col-6">
+                        <label style="font-size: 12px">Descripcion :</label>
+                        <input class="form-control form-control-sm" type="text" [(ngModel)]="descripcion">
+                    </div>
+                </div>
+                <div class="col-12" style="margin-top: 10px">
+                    <i class="mdi mdi-plus-circle" (click)="InsertCuentaCC2()" aria-disabled="idDisabled" [ngClass]="{'icono-disabled': idDisabled == true}" aria-hidden="true" style="font-size: 250%; cursor: pointer; color: #06d79c"></i>
+                </div>
+                <div class="col-12" style="margin-top: 5px;">
+                    <div class="table-responsive">
+                        <table *ngIf="!tipo_centro_costo.cuenta_consumo" class="table table-bordered">
+                            <tr style="background: #c9e2de;;font-size: 12px;">
+                                <th style=" text-align: center;">Nombre</th>
+                                <th style=" text-align: center;">Descripcion</th>
+                                <th style=" text-align: center;" *ngIf=" tipo_centro_costo.cuenta_ingreso && nivel_name == '2' ? true : false">Cta Ingreso</th>
+                                <th style=" text-align: center;" *ngIf=" tipo_centro_costo.cuenta_egreso && nivel_name == '2' ? true : false">Cta Egreso</th>
+                                <th style=" text-align: center;">Editar</th>
+                                <th style=" text-align: center;">Eliminar</th>
+                            </tr>
+                            <tr style="font: size 12px; text-align: center;" *ngFor="let cat of centro_costo.lscentro_costo2; let indice=index">
+                                <td style="padding: 15px 12px" *ngIf="cat.esconder==true" type="text">
+                                    <input [(ngModel)]="cat.nombre" style="width: 70px;"></td>
+                                <td *ngIf="cat.esconder==false || cat.esconder==undefined" style="padding: 15px 12px">{{cat.nombre}}</td>
+                                <td *ngIf="cat.esconder==true" type="text">
+                                    <input [(ngModel)]="cat.descripcion" class="focus" style="margin-top: 2px;"></td>
+                                <td *ngIf="cat.esconder==false || cat.esconder==undefined" style="padding: 15px 12px;">{{cat.descripcion}}</td>
+                                <td style="padding: 5px 12px;" *ngIf="tipo_centro_costo.cuenta_ingreso && nivel_name == '2' ? true : false">
+                                    <i class="mdi mdi-plus-circle" (click)="NuevoRegsitrarctaCC2('INGRESO', indice)" aria-hidden="true" style="font-size: 250%; cursor: pointer;"></i>
+                                </td>
+                                <td style="padding: 5px 12px;" *ngIf="tipo_centro_costo.cuenta_egreso && nivel_name == '2' ? true : false">
+                                    <i class="mdi mdi-plus-circle" (click)="NuevoRegsitrarctaCC2('EGRESO', indice)" aria-hidden="true" style="font-size: 250%; cursor: pointer;"></i>
+                                </td>
+                                <td style="padding: 5px 12px;">
+                                    <i class="mdi mdi-pencil" style="font-size: 250%; cursor: pointer;" (click)="cat.esconder==true?cat.esconder=false:cat.esconder=true; cerrar_todo(cat)"></i>
+                                </td>
+                                <td style="padding: 5px 12px;">
+                                    <i class="mdi mdi-delete" style="font-size: 250%; cursor: pointer;" (click)="EliminarCuenta(indice)"></i>
+                                </td>
+                            </tr>
+                        </table>
+                        <table *ngIf="tipo_centro_costo.cuenta_consumo" class="table table-bordered">
+                            <tr style="background: #c9e2de;;font-size: 12px;">
+                                <th style=" text-align: center;">Nombre</th>
+                                <th style=" text-align: center;">Descripcion</th>
+                                <th style=" text-align: center;" *ngIf="nivel_name == '2' && tipoEmpresa == 'P'">Cta Consumo</th>
+                                <th style=" text-align: center;" *ngIf="nivel_name == '2' && tipoEmpresa == 'S'">Cta Egreso</th>
+                                <th style=" text-align: center;">Editar</th>
+                                <th style=" text-align: center;">Eliminar</th>
+                            </tr>
+                            <tr style="font: size 12px; text-align: center;" *ngFor="let cat of centro_costo.lscentro_costo2; let indice=index">
+                                <td style="padding: 15px 12px" *ngIf="cat.esconder==true" type="text">
+                                    <input [(ngModel)]="cat.nombre" style="width: 70px;"></td>
+                                <td *ngIf="cat.esconder==false || cat.esconder==undefined" style="padding: 15px 12px">{{cat.nombre}}</td>
+
+                                <td *ngIf="cat.esconder==true" type="text">
+                                    <input [(ngModel)]="cat.descripcion" class="focus" style="margin-top: 2px;"></td>
+                                <td *ngIf="cat.esconder==false || cat.esconder==undefined" style="padding: 15px 12px;">{{cat.descripcion}}</td>
+
+                                <td style="padding: 5px 12px;" *ngIf="nivel_name == '2' && tipoEmpresa == 'P'">
+                                    <i class="mdi mdi-plus-circle" (click)="NuevoRegsitrarctaCC2('CONSUMO', indice)" aria-hidden="true" style="font-size: 250%; cursor: pointer;"></i>
+                                </td>
+                                <td style="padding: 5px 12px;" *ngIf="nivel_name == '2' && tipoEmpresa == 'S'">
+                                    <i class="mdi mdi-plus-circle" (click)="NuevoRegsitrarctaCC2('EGRESO', indice)" aria-hidden="true" style="font-size: 250%; cursor: pointer;"></i>
+                                </td>
+                                <td style="padding: 5px 12px;">
+                                    <i class="mdi mdi-pencil" style="font-size: 250%; cursor: pointer;" (click)="cat.esconder==true?cat.esconder=false:cat.esconder=true; cerrar_todo(cat)"></i>
+                                </td>
+                                <td style="padding: 5px 12px;">
+                                    <i class="mdi mdi-delete" style="font-size: 250%; cursor: pointer;" (click)="EliminarCuenta(indice)"></i>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="nivel_name == '3' || nivel_name == '4' ? true : false" class="tab-pane fade" id="nav-niv3" role="tabpanel" aria-labelledby="nav-niv3-tab">
+
+                <div class="col-12 row" style="margin: 0px; padding: 0px; margin-top: 20px;">
+                    <div class="form-group col-6" id="div_select">
+                        <label style="font-size: 12px">Centro de Costo 2 : </label>
+                        <!-- <ng-select id="selectcc2" [items]="centro_costo.lscentro_costo2" bindLabel="nombre" bindValue="id_centro_costo_2" [(ngModel)]="id_centro_costo_2" placeholder="seleccione un nivel"></ng-select> -->
+                        <select style="border: 1px solid rgba(0, 0, 0, .15);border-radius: .2rem;width: 100%;font-size: 100%;padding-left: 5px; color: #67757c" [(ngModel)]="nombre_cc2" name="itemsPerPage" class="" (ngModelChange)="seteaNivel2(nombre_cc2)">
+                                    <option *ngFor="let m of centro_costo.lscentro_costo2" [value]="m.nombre"  >
+                                            {{ m.nombre }}
+                                    </option>
+                               </select>
+                    </div>
+                    <div class="form-group col-6">
+                        <label style="font-size: 12px"><span style="color: #467A72; font-weight: bold;">*</span>Nombre :</label>
+                        <input class="form-control form-control-sm" type="text" [(ngModel)]="centro_costo3.nombre" (ngModelChange)="validarCCDetalle2()">
+                    </div>
+                    <div class="form-group col-6">
+                        <label style="font-size: 12px">Descripcion :</label>
+                        <input class="form-control form-control-sm" type="text" [(ngModel)]="descripcion">
+                    </div>
+                </div>
+
+                <div class="col-12" style="margin-top: 10px">
+                    <i class="mdi mdi-plus-circle" (click)="InsertCuentaCC3()" aria-disabled="idDisabled" [ngClass]="{'icono-disabled': idDisabled == true}" aria-hidden="true" style="font-size: 250%; cursor: pointer; color: #06d79c"></i>
+                </div>
+                <div class="col-12" style="margin-top: 5px;">
+                    <div class="table-responsive">
+                        <table *ngIf="!tipo_centro_costo.cuenta_consumo" class="table table-bordered">
+                            <tr style="background: #c9e2de;;font-size: 12px;">
+                                <th style=" text-align: center;">Nombre</th>
+                                <th style=" text-align: center;" *ngIf="nivel_name == '3' ? false : true">2</th>
+                                <th style=" text-align: center;">Descripcion</th>
+                                <th style=" text-align: center;" *ngIf="tipo_centro_costo.cuenta_ingreso && nivel_name == '3' ? true : false">Cta Ingreso</th>
+                                <th style=" text-align: center;" *ngIf="tipo_centro_costo.cuenta_egreso && nivel_name == '3' ? true : false">Cta Egreso</th>
+                                <th style=" text-align: center;">Editar</th>
+                                <th style=" text-align: center;">Eliminar</th>
+                            </tr>
+                            <tr style="font: size 12px; text-align: center;" *ngFor="let cat of centro_costo2.lscentro_costo3; let indice=index">
+                                <td *ngIf="estado_boton != 0 ? true : false" style="padding: 15px 12px;"><input type="text" [(ngModel)]="cat.nombre"></td>
+                                <td *ngIf="estado_boton == 0 ? true : false" style="padding: 15px 12px;">{{cat.nombre}} </td>
+                                <td style="padding: 15px 12px;" *ngIf="nivel_name == '3' ? false : true">{{centro_costo2.nombre}}</td>
+                                <td *ngIf="cat.esconder==true" type="text">
+                                    <input [(ngModel)]="cat.descripcion" class="focus" style="margin-top: 2px;"></td>
+                                <td *ngIf="cat.esconder==false || cat.esconder==undefined" style="padding: 15px 12px;">{{cat.descripcion}}</td>
+
+                                <td style="padding: 5px 12px;" *ngIf="tipo_centro_costo.cuenta_ingreso && nivel_name == '3' ? true : false">
+                                    <i class="mdi mdi-plus-circle" (click)="NuevoRegsitrarctaCC3('INGRESO', indice)" aria-hidden="true" style="font-size: 250%; cursor: pointer;"></i>
+                                </td>
+                                <td style="padding: 5px 12px;" *ngIf="tipo_centro_costo.cuenta_egreso && nivel_name == '3' ? true : false">
+                                    <i class="mdi mdi-plus-circle" (click)="NuevoRegsitrarctaCC3('EGRESO', indice)" aria-hidden="true" style="font-size: 250%; cursor: pointer;"></i>
+                                </td>
+                                <td style="padding: 5px 12px;">
+                                    <i class="mdi mdi-pencil" style="font-size: 250%; cursor: pointer;" (click)="cat.esconder==true?cat.esconder=false:cat.esconder=true; cerrar_todo(cat)"></i>
+                                </td>
+                                <td style="padding: 5px 12px;">
+                                    <i class="mdi mdi-delete" style="font-size: 250%; cursor: pointer;" (click)="EliminarCuenta3(indice)"></i>
+                                </td>
+                            </tr>
+                        </table>
+                        <table *ngIf="tipo_centro_costo.cuenta_consumo" class="table table-bordered">
+                            <tr style="background: #c9e2de;;font-size: 12px;">
+                                <th style=" text-align: center;">Nombre</th>
+                                <th style=" text-align: center;" *ngIf="nivel_name == '3' ? false : true">2</th>
+                                <th style=" text-align: center;">Descripcion</th>
+                                <th style=" text-align: center;" *ngIf="nivel_name == '3' && tipoEmpresa == 'P'">Cta Consumo</th>
+                                <th style=" text-align: center;" *ngIf="nivel_name == '3' && tipoEmpresa == 'S'">Cta Egreso</th>
+                                <th style=" text-align: center;">Editar</th>
+                                <th style=" text-align: center;">Eliminar</th>
+                            </tr>
+                            <tr style="font: size 12px; text-align: center;" *ngFor="let cat of centro_costo2.lscentro_costo3; let indice=index">
+                                <td style="padding: 15px 12px" *ngIf="cat.esconder==true" type="text">
+                                    <input [(ngModel)]="cat.nombre" style="width: 70px;"></td>
+                                <td *ngIf="cat.esconder==false || cat.esconder==undefined" style="padding: 15px 12px">{{cat.nombre}}</td>
+                                <td style="padding: 15px 12px;" *ngIf="nivel_name == '3' ? false : true">{{centro_costo2.nombre}}</td>
+                                <td *ngIf="cat.esconder==true" type="text">
+                                    <input [(ngModel)]="cat.descripcion" class="focus" style="margin-top: 2px;"></td>
+                                <td *ngIf="cat.esconder==false || cat.esconder==undefined" style="padding: 15px 12px;">{{cat.descripcion}}</td>
+
+                                <td style="padding: 5px 12px;" *ngIf="nivel_name == '3' && tipoEmpresa == 'P'">
+                                    <i class="mdi mdi-plus-circle" (click)="NuevoRegsitrarctaCC3('CONSUMO', indice)" aria-hidden="true" style="font-size: 250%; cursor: pointer;"></i>
+                                </td>
+                                <td style="padding: 5px 12px;" *ngIf="nivel_name == '3' && tipoEmpresa == 'S'">
+                                    <i class="mdi mdi-plus-circle" (click)="NuevoRegsitrarctaCC3('EGRESO', indice)" aria-hidden="true" style="font-size: 250%; cursor: pointer;"></i>
+                                </td>
+                                <td style="padding: 5px 12px;">
+                                    <i class="mdi mdi-pencil" style="font-size: 250%; cursor: pointer;" (click)="cat.esconder==true?cat.esconder=false:cat.esconder=true; cerrar_todo(cat)"></i>
+                                </td>
+                                <td style="padding: 5px 12px;">
+                                    <i class="mdi mdi-delete" style="font-size: 250%; cursor: pointer;" (click)="EliminarCuenta3(indice)"></i>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div *ngIf="nivel_name == '4' ? true : false" class="tab-pane fade" id="nav-niv4" role="tabpanel" aria-labelledby="nav-niv4-tab">
+                <div class="col-12 row" style="margin: 0px; padding: 0px; margin-top: 20px;">
+                    <div class="form-group col-6" id="div_select">
+                        <label style="font-size: 12px">Centro de Costo 3 :{{ListCCosto3}}</label>
+                        <!-- <ng-select [items]="ListCCosto3" bindLabel="nombre" bindValue="id_centro_costo_3" [(ngModel)]="id_centro_costo_3" placeholder="seleccione un nombre"></ng-select> -->
+                        <select style="border: 1px solid rgba(0, 0, 0, .15);border-radius: .2rem;width: 100%;font-size: 100%;padding-left: 5px; color: #67757c" [(ngModel)]="nombre_cc3" name="itemsPerPage" class="" (ngModelChange)="seteaNivel3(nombre_cc3)">
+                            <option *ngFor="let m of centro_costo2.lscentro_costo3" [value]="m.nombre"  >
+                                    {{ m.nombre }}
+                            </option>
+                       </select>
+                    </div>
+                    <div class="form-group col-6">
+                        <label style="font-size: 12px"><span style="color: #467A72; font-weight: bold;">*</span>Nombre :</label>
+                        <input class="form-control form-control-sm" type="text" [(ngModel)]="centro_costo4.nombre" (ngModelChange)="validarCCDetalle3()">
+                    </div>
+                    <div class="form-group col-6">
+                        <label style="font-size: 12px">Descripcion :</label>
+                        <input class="form-control form-control-sm" type="text" [(ngModel)]="descripcion">
+                    </div>
+                </div>
+                <div class="col-12" style="margin-top: 10px">
+                    <i class="mdi mdi-plus-circle" (click)="InsertCuentaCC4()" aria-hidden="true" style="font-size: 250%; cursor: pointer; color: #06d79c"></i>
+                </div>
+                <div class="col-12" style="margin-top: 5px;">
+                    <div class="table-responsive">
+                        <table *ngIf="!tipo_centro_costo.cuenta_consumo" class="table table-bordered">
+                            <tr style="background: #c9e2de;;font-size: 12px;">
+                                <th style=" text-align: center;">Nombre</th>
+                                <th style=" text-align: center;" *ngIf="nivel_name == '4' ? true : false">3</th>
+                                <th style=" text-align: center;" *ngIf="nivel_name == '4' ? true : false">2</th>
+                                <th style=" text-align: center;">Descripcion</th>
+                                <th *ngIf="tipo_centro_costo.cuenta_ingreso" style=" text-align: center;">Cta Ingreso</th>
+                                <th *ngIf="tipo_centro_costo.cuenta_egreso" style=" text-align: center;">Cta Egreso</th>
+                                <th style=" text-align: center;">Editar</th>
+                                <th style=" text-align: center;">Eliminar</th>
+                            </tr>
+                            <tr style="font: size 12px; text-align: center;" *ngFor="let cat of centro_costo3.lscentro_costo4; let indice=index">
+                                <td style="padding: 15px 12px" *ngIf="cat.esconder==true" type="text">
+                                    <input [(ngModel)]="cat.nombre" style="width: 70px;"></td>
+                                <td *ngIf="cat.esconder==false || cat.esconder==undefined" style="padding: 15px 12px">{{cat.nombre}}</td>
+                                <td style="padding: 15px 12px;" *ngIf="nivel_name == '4' ? true : false">{{centro_costo2.nombre}}</td>
+                                <td style="padding: 15px 12px;" *ngIf="nivel_name == '4' ? true : false">{{centro_costo3.nombre}}</td>
+                                <td *ngIf="cat.esconder==true" type="text">
+                                    <input [(ngModel)]="cat.descripcion" class="focus" style="margin-top: 2px;"></td>
+                                <td *ngIf="cat.esconder==false || cat.esconder==undefined" style="padding: 15px 12px;">{{cat.descripcion}}</td>
+                                <td *ngIf="tipo_centro_costo.cuenta_ingreso" style="padding: 5px 12px;">
+                                    <i class="mdi mdi-plus-circle" (click)="NuevoRegsitrarctaCC4('INGRESO', indice)" aria-hidden="true" style="font-size: 250%; cursor: pointer;"></i>
+                                </td>
+                                <td *ngIf="tipo_centro_costo.cuenta_egreso" style="padding: 5px 12px;">
+                                    <i class="mdi mdi-plus-circle" (click)="NuevoRegsitrarctaCC4('EGRESO', indice)" aria-hidden="true" style="font-size: 250%; cursor: pointer;"></i>
+                                </td>
+                                <td style="padding: 5px 12px;">
+                                    <i class="mdi mdi-pencil" style="font-size: 250%; cursor: pointer;" (click)="cat.esconder==true?cat.esconder=false:cat.esconder=true; cerrar_todo(cat)"></i>
+                                </td>
+                                <td style="padding: 5px 12px;">
+                                    <i class="mdi mdi-delete" style="font-size: 250%; cursor: pointer;" (click)="EliminarCuenta4(indice)"></i>
+                                </td>
+                            </tr>
+                        </table>
+                        <table *ngIf="tipo_centro_costo.cuenta_consumo" class="table table-bordered">
+                            <tr style="background: #c9e2de;;font-size: 12px;">
+                                <th style=" text-align: center;">Nombre</th>
+                                <th style=" text-align: center;" *ngIf="nivel_name == '4' ? true : false">3</th>
+                                <th style=" text-align: center;" *ngIf="nivel_name == '4' ? true : false">2</th>
+                                <th style=" text-align: center;">Descripcion</th>
+                                <th *ngIf="tipoEmpresa == 'P'" style=" text-align: center;">Cta Consumo</th>
+                                <th *ngIf="tipoEmpresa == 'S'" style=" text-align: center;">Cta Egreso</th>
+                                <th style=" text-align: center;">Editar</th>
+                                <th style=" text-align: center;">Eliminar</th>
+
+                            </tr>
+                            <tr style="font: size 12px; text-align: center;" *ngFor="let cat of centro_costo3.lscentro_costo4; let indice=index">
+                                <td style="padding: 15px 12px" *ngIf="cat.esconder==true" type="text">
+                                    <input [(ngModel)]="cat.nombre" style="width: 70px;"></td>
+                                <td *ngIf="cat.esconder==false || cat.esconder==undefined" style="padding: 15px 12px">{{cat.nombre}}</td>
+                                <td style="padding: 15px 12px;" *ngIf="nivel_name == '4' ? true : false">{{centro_costo2.nombre}}</td>
+                                <td style="padding: 15px 12px;" *ngIf="nivel_name == '4' ? true : false">{{centro_costo3.nombre}}</td>
+                                <td *ngIf="cat.esconder==true" type="text">
+                                    <input [(ngModel)]="cat.descripcion" class="focus" style="margin-top: 2px;"></td>
+                                <td *ngIf="cat.esconder==false || cat.esconder==undefined" style="padding: 15px 12px;">{{cat.descripcion}}</td>
+                                <td style="padding: 5px 12px;" *ngIf="tipoEmpresa == 'P'">
+                                    <i class="mdi mdi-plus-circle" (click)="NuevoRegsitrarctaCC4('CONSUMO', indice)" aria-hidden="true" style="font-size: 250%; cursor: pointer;"></i>
+                                </td>
+                                <td style="padding: 5px 12px;" *ngIf="tipoEmpresa == 'S'">
+                                    <i class="mdi mdi-plus-circle" (click)="NuevoRegsitrarctaCC4('EGRESO', indice)" aria-hidden="true" style="font-size: 250%; cursor: pointer;"></i>
+                                </td>
+                                <td style="padding: 5px 12px;">
+                                    <i class="mdi mdi-pencil" style="font-size: 250%; cursor: pointer;" (click)="cat.esconder==true?cat.esconder=false:cat.esconder=true; cerrar_todo(cat)"></i>
+                                </td>
+                                <td style="padding: 5px 12px;">
+                                    <i class="mdi mdi-delete" style="font-size: 250%; cursor: pointer;" (click)="EliminarCuenta4(indice)"></i>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer" style="padding: 7px 15px;justify-content: center; border: none;">
+    <p style="font-size: 12px;position: absolute;left: 30px;opacity: 0.7;"><span style="font-size: 30px;position: absolute;top: -1px;left: -10px; ;opacity: 0.7;">*</span>Campos obligatorios</p>
+    <!-- <i (click)="close()" class="mdi mdi-close-circle" style="cursor: pointer; font-size: 35px;color: #dc3545;margin-right: 25px;"></i>
+    <i (click)="ConfirmarCentroCosto()" class="mdi mdi-content-save" style="cursor: pointer; font-size: 35px;color: #17a2b8;margin-left: 25px;"></i> -->
+    <button class="btn btn-warning btn-sm min" data-dismiss="modal" (click)="close()">Cancelar</button>
+    <button class="btn btn-primary btn-sm min" style="cursor: pointer" (click)="ConfirmarCentroCosto()">Aceptar</button>
+</div>

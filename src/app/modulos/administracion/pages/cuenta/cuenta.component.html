@@ -1,0 +1,39 @@
+<hr>
+<div class="col-12 row">
+    <div class="col-4 row">
+        <div class="form-group col-12" style="margin-bottom: 20px;">
+            <label for="tipcue" style="font-weight: bold;">Tipo Cuenta :</label>
+            <ng-select id="tipcue" [items]="lstTipoCuenta" bindLabel="descripcion" bindValue="descripcion" placeholder="seleccione Tipo Cuenta" [(ngModel)]="cuenta.cod_tipo_cuenta" (ngModelChange)="listarCuentaPorEmpresaTipoCuenta()" name="#cuenta.cod_tipo_cuenta"
+                required></ng-select>
+        </div>
+    </div>
+    <div class="col-4 row" style="padding-top: 17px;">
+        <div class="form-group col-9">
+            <!-- <label style="font-size: 12px">Seleccione una empresa :</label> -->
+            <ng-select [items]="lsEmpresas" bindLabel="razon_social_empresa" bindValue="id_empresa" placeholder="seleccione" [(ngModel)]="cuenta.id_empresa" [disabled]="true"></ng-select>
+        </div>
+        <div class="form-group col-3" style="margin: 0px">
+            <i class="mdi mdi-plus-circle" aria-hidden="true" (click)="InsertarCuenta()" style="font-size: 300%; margin: 15px; cursor: pointer;" aria-disabled="idDisabled" [ngClass]="{'icono-disabled': idDisabled == true}"></i>
+        </div>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-bordered ">
+        <tr style="background: #c9e2de;;font-size: 12px">
+            <th class="text-center">Tipo Cuenta</th>
+            <th class="text-center">Nombre</th>
+            <th class="text-center">Editar</th>
+            <th class="text-center">Eliminar</th>
+        </tr>
+        <tr style="font-size: 12px" *ngFor="let cat of lsCuenta;let indice=index">
+            <td class="text-center">{{cat.cod_tipo_cuenta}}</td>
+            <td class="text-center">{{cat.descripcion_cuenta}}</td>
+            <td class="text-center">
+                <i class="mdi mdi-pencil" (click)="ActualizarCuenta(indice)" aria-hidden="true" style="cursor: pointer; font-size: 25px;"></i>
+            </td>
+            <td class="text-center">
+                <i class="mdi mdi-delete" (click)="EliminarCuenta(indice)" aria-hidden="true" style="cursor: pointer; font-size: 25px;"></i>
+            </td>
+        </tr>
+    </table>
+</div>

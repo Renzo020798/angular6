@@ -1,0 +1,54 @@
+<div class="modal-header" style="justify-content: center;border-bottom: 1px solid #ffffff !important;">
+    <h5 class="modal-title" style="font-size: 15px; font-weight: bold;">REGISTRAR PAGO</h5>
+</div>
+<div class="modal-body">
+    <div class="col-12" style="padding: 15px; border: 1px solid #c3c3c3; border-radius: 10px;">
+        <div class="col-12 row" style="margin: 0px; padding: 0px;">
+            <div class="form-group col-12">
+                <label style="font-size: 12px">Total documento :</label>
+                <label style="font-size: 12px">{{simboloMoneda}} {{total_doc}}</label>
+                <label style="font-size: 12px">Total pagado :</label>
+                <label style="font-size: 12px">{{simboloMoneda}} {{total_pagado}}</label>
+
+            </div>
+        </div>
+
+        <div class="form-group col-3">
+            <i (click)="adicionarPago()" class="mdi  mdi-plus-circle" style="cursor: pointer; font-size: 35px;color: #17a2b8;margin-left: 25px;"></i>
+
+        </div>
+
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tr style="background: #c9e2de;;font-size: 12px;">
+                        <th style=" text-align: center;">Monto cancelado</th>
+                        <th style=" text-align: center;">Fecha pago</th>
+                        <th style=" text-align: center;">Registro</th>
+                        <th style=" text-align: center;">Eliminar</th>
+
+                    </tr>
+                    <tr *ngFor="let pago of lsPago;let indice=index" style="font: size 12px; text-align: center;">
+                        <td style="padding: 15px 12px;">
+                            <input [disabled]="pago.bloqueado" class="form-control form-control-sm" (change)="validarTotal(indice)" [(ngModel)]="pago.monto_pagado" type="number">
+                        </td>
+                        <td style="padding: 15px 12px;">
+                            <ejs-datepicker [disabled]="pago.bloqueado" [ngModel]="pago.fecha_pago | date:'dd-MM-yyyy'" [(ngModel)]="pago.fecha_pago" format='dd-MM-yyyy' type="text" id='datepicker' placeholder='Elige una fecha'> </ejs-datepicker>
+                        </td>
+                        <td class="text-center">
+                            <i *ngIf="!pago.bloqueado" class="mdi mdi-content-save" (click)="guardarPago(indice)" aria-hidden="true" style="cursor: pointer; font-size: 25px;"></i>
+                            <i *ngIf="pago.bloqueado" class="mdi  mdi-pencil" (click)="editarPago(indice)" aria-hidden="true" style="cursor: pointer; font-size: 25px;"></i>
+                        </td>
+                        <td class="text-center">
+                            <i class="mdi mdi-delete" (click)="eliminarPago(indice)" aria-hidden="true" style="cursor: pointer; font-size: 25px;"></i>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal-footer" style="padding: 7px 15px;justify-content: center;border: none;">
+    <i (click)="regresar()" class="mdi mdi-check-all" style="cursor: pointer; font-size: 35px;color: #17a2b8;margin-left: 25px;"></i>
+</div>

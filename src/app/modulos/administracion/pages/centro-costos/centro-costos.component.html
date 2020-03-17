@@ -1,0 +1,363 @@
+<hr>
+<div class="col-12 row">
+    <div class="col-4" style="margin-bottom: 10px">
+        <div class="form-check form-check-inline">
+            <label style="font-size: 12px">Tipo :</label>
+            <ng-select [items]="lstCentroCostosEmp" style="width: 370px;" bindLabel="tipo_centro_costo.descripcion" bindValue="tipo_centro_costo.id_tipo_centro_costo" [(ngModel)]="centro_costo.id_tipo_centro_costo" (ngModelChange)="listarCentroCostoxTipo()" placeholder="seleccione un Tipo"></ng-select>
+        </div>
+    </div>
+    <div class="col-8 row">
+        <div class="form-group col-2">
+            <i class="mdi mdi-plus-circle" (click)="NuevoCentroCostos()" aria-hidden="true" style="font-size: 300%; margin: 15px; cursor: pointer;"></i>
+        </div>
+    </div>
+</div>
+<div class="col-12">
+    <div class="table-responsive">
+        <table class="table table-bordered ">
+            <tr style="background: #c9e2de;;font-size: 12px">
+                <th class="text-center"></th>
+                <th class="text-center">Nombre</th>
+                <th class="text-center">Descripcion</th>
+                <th class="text-center">Niveles</th>
+                <th class="text-center">Tipo</th>
+                <th class="text-center">Editar</th>
+                <th class="text-center">Eliminar</th>
+                <th class="text-center" *ngIf="centro_costo.id_tipo_centro_costo == 5 ? true : false">Porcentaje</th>
+            </tr>
+            <tbody *ngFor="let cat of lsCentroCosto;let indice=index">
+                <tr style="font-size: 12px">
+                    <td *ngIf="((cat.lsCuentaIngreso != undefined && cat.lsCuentaIngreso.length > 0 ? true : false) || (cat.lsCuentaEgreso != undefined && cat.lsCuentaEgreso.length > 0 ? true : false)) || cat.ultimoNivel != true" class="text-center" style="padding: 5px 0px 0px 0px;">
+                        <a *ngIf="cat.expanded" (click)="cat.expanded = false">
+                            <i class="mdi mdi-arrow-up-drop-circle" style="font-size: 23px; cursor: pointer;"></i>
+                        </a>
+                        <a *ngIf="!cat.expanded" #UpCircle (click)="cat .expanded = true">
+                            <i class="mdi mdi-arrow-down-drop-circle" style="font-size: 23px; cursor: pointer;"></i>
+                        </a>
+                    </td>
+                    <td *ngIf="cat.lsCuentaIngreso == 0 && cat.lsCuentaEgreso == 0 "></td>
+                    <td class="text-center ">{{cat.nombre}}</td>
+                    <td class="text-center ">{{cat.descripcion}}</td>
+                    <td class="text-center ">{{cat.niveles}}</td>
+                    <td class="text-center ">{{cat.tipoCentroCosto.descripcion}}</td>
+                    <td class="text-center ">
+                        <i (click)="editarCentroCosto(cat) " class="fa fa-pencil-square-o " aria-hidden="true " style="cursor: pointer; font-size: 25px; "></i>
+                    </td>
+                    <td class="text-center ">
+                        <i (click)="eliminarCentroCosto(cat) " class="fa fa-trash " aria-hidden="true " style="cursor: pointer; font-size: 25px; "></i>
+                    </td>
+                    <td class="text-center " *ngIf="centro_costo.id_tipo_centro_costo==5 ? true : false ">
+                        <i (click)="ActualizarPorcentajeVentas(cat) " class="fa fa-percent " aria-hidden="true " style="cursor: pointer; font-size: 25px; "></i>
+                    </td>
+                </tr>
+
+
+
+
+
+                <!-- tabla cuentaIE-->
+                <tr *ngIf="cat.expanded && cat.niveles == 1" style="font-size: 12px ">
+                    <td colspan="12 ">
+                        <nav *ngIf="cat.expanded">
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <a *ngIf="cat.lsCuentaIngreso.length > 0  ? true : false" class="nav-item nav-link active" id="nav-lsIngreso-tab" data-toggle="tab" href="#nav-lsIngreso{{indice}}" role="tab" aria-controls="nav-lsIngreso" aria-selected="false">Cuenta Ingreso</a>
+                                <a *ngIf="cat.lsCuentaEgreso.length > 0  ? true : false" class="nav-item nav-link" id="nav-lsEgreso-tab" data-toggle="tab" href="#nav-lsEgreso{{indice}}" role="tab" aria-controls="nav-lsEgreso" aria-selected="false">Cuenta Egreso</a>
+                            </div>
+                        </nav>
+                        <div *ngIf="cat.expanded" class="tab-content" id="nav-tabContent">
+                            <div *ngIf="cat.lsCuentaIngreso.length > 0  ? true : false" class="tab-pane fade" id="nav-lsIngreso{{indice}}" role="tabpanel" aria-labelledby="nav-lsIngreso-tab">
+                                <div class="col-10" style="margin: 5px auto 0px;">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <tr style="background: #c9e2de;;font-size: 12px;">
+                                                <th style=" text-align: center;">Nombre Cuenta</th>
+                                            </tr>
+                                            <tr style="font: size 12px; text-align: center;" *ngFor="let cat5 of cat.lsCuentaIngreso;">
+                                                <td style="padding: 15px 12px">{{cat5.descripcion_cuenta}}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="cat.lsCuentaEgreso.length > 0  ? true : false" class="tab-pane fade " id="nav-lsEgreso{{indice}}" role="tabpanel" aria-labelledby="nav-lsEgreso-tab">
+                                <div class="col-10" style="margin: 5px auto 0px;">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <tr style="background: #c9e2de;;font-size: 12px;">
+                                                <th style=" text-align: center;">Nombre Cuenta</th>
+                                            </tr>
+                                            <tr style="font: size 12px; text-align: center;" *ngFor="let cat5 of cat.lsCuentaEgreso;">
+                                                <td style="padding: 15px 12px">{{cat5.descripcion_cuenta}}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+
+
+
+
+
+
+
+
+
+                <!-- tabla nivel 2-->
+                <tr *ngIf="cat.expanded && cat.niveles != 1" style="font-size: 12px ">
+                    <td colspan="12 ">
+                        <table class="table table-bordered " style="width: 950px; margin: 6px auto ">
+                            <tr style="background: rgb(168, 200, 233); font-size: 15px; color: #fff; ">
+                                <th class="text-center " colspan="3 " style="background-color: #467A72;">NIVEL 2</th>
+                            </tr>
+                            <tr style="background: #c9e2de; ">
+                                <th style="width: 49px;"></th>
+                                <th class="text-center">Nombre</th>
+                                <th class="text-center">Descripcion</th>
+                            </tr>
+                            <tbody *ngFor="let cat2 of cat.lscentro_costo2;let indice=index ">
+                                <tr>
+                                    <td *ngIf="((cat2.lsCuentaIngreso != undefined && cat2.lsCuentaIngreso.length > 0 ? true : false) || (cat2.lsCuentaEgreso != undefined && cat2.lsCuentaEgreso.length > 0 ? true : false)) || cat2.ultimoNivel != true" class="text-center" style="padding: 5px 0px 0px 0px;">
+                                        <a *ngIf="cat2.expanded " (click)="cat2.expanded=false ">
+                                            <i class="mdi mdi-arrow-up-drop-circle " style="font-size: 23px; cursor: pointer; "></i>
+                                        </a>
+                                        <a *ngIf="!cat2.expanded " #UpCircle (click)="cat2 .expanded=true; ">
+                                            <i class="mdi mdi-arrow-down-drop-circle " style="font-size: 23px; cursor: pointer; "></i>
+                                        </a>
+                                    </td>
+                                    <td *ngIf="cat2.lsCuentaIngreso == 0 && cat2.lsCuentaEgreso == 0" style="border-right: 1px solid #ffff"></td>
+                                    <td class="text-center ">{{cat2.nombre}} </td>
+                                    <td class="text-center ">{{cat2.descripcion}} </td>
+                                </tr>
+
+
+
+
+
+
+                                <!-- tabla cuentaIE - nivel 2-->
+                                <tr *ngIf="cat2.expanded && cat.niveles == 2" style="font-size: 12px ">
+                                    <td colspan="12 ">
+                                        <nav *ngIf="cat2.expanded">
+                                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                                <a *ngIf="cat2.lsCuentaIngreso.length > 0  ? true : false" class="nav-item nav-link active" id="nav-lsIngreso-tab" data-toggle="tab" href="#nav-lsIngreso{{indice}}" role="tab" aria-controls="nav-lsIngreso" aria-selected="false">Cuenta Ingreso</a>
+                                                <a *ngIf="cat2.lsCuentaEgreso.length > 0  ? true : false" class="nav-item nav-link" id="nav-lsEgreso-tab" data-toggle="tab" href="#nav-lsEgreso{{indice}}" role="tab" aria-controls="nav-lsEgreso" aria-selected="false">Cuenta Egreso</a>
+                                            </div>
+                                        </nav>
+
+                                        <div *ngIf="cat2.expanded" class="tab-content" id="nav-tabContent">
+                                            <div *ngIf="cat2.lsCuentaIngreso.length > 0  ? true : false" class="tab-pane fade" id="nav-lsIngreso{{indice}}" role="tabpanel" aria-labelledby="nav-lsIngreso-tab">
+                                                <div class="col-10" style="margin: 5px auto 0px;">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered">
+                                                            <tr style="background: #c9e2de;;font-size: 12px;">
+                                                                <th style=" text-align: center;">Nombre Cuenta</th>
+                                                            </tr>
+                                                            <tr style="font: size 12px; text-align: center;" *ngFor="let cat5 of cat2.lsCuentaIngreso;">
+                                                                <td style="padding: 15px 12px">{{cat5.descripcion_cuenta}}</td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="cat2.lsCuentaEgreso.length > 0  ? true : false" class="tab-pane fade " id="nav-lsEgreso{{indice}}" role="tabpanel" aria-labelledby="nav-lsEgreso-tab">
+                                                <div class="col-10" style="margin: 5px auto 0px;">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered">
+                                                            <tr style="background: #c9e2de;;font-size: 12px;">
+                                                                <th style=" text-align: center;">Nombre Cuenta</th>
+                                                            </tr>
+                                                            <tr style="font: size 12px; text-align: center;" *ngFor="let cat5 of cat2.lsCuentaEgreso;">
+                                                                <td style="padding: 15px 12px">{{cat5.descripcion_cuenta}}</td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+
+
+
+
+
+
+
+
+
+                                <!-- tabla nivel 3-->
+                                <tr *ngIf="cat2.expanded && cat.niveles != 2" style="font-size: 12px ">
+                                    <td colspan="12 ">
+                                        <table class="table table-bordered " style="width: 817px; margin: 6px auto ">
+                                            <tr style="background: rgb(168, 200, 233); font-size: 15px; color: #fff; ">
+                                                <th class="text-center " colspan="3" style="background-color: #467A72;">NIVEL 3</th>
+                                            </tr>
+                                            <tr style="background: #c9e2de; ">
+                                                <th style="width: 49px;"></th>
+                                                <th class="text-center ">Nombre</th>
+                                                <th class="text-center ">Descripcion</th>
+                                            </tr>
+                                            <tbody *ngFor="let cat3 of cat2.lscentro_costo3;let indice=index ">
+                                                <tr>
+                                                    <td *ngIf="((cat3.lsCuentaIngreso != undefined && cat3.lsCuentaIngreso.length > 0 ? true : false) || (cat3.lsCuentaEgreso != undefined && cat3.lsCuentaEgreso.length > 0 ? true : false)) || cat3.ultimoNivel != true" class="text-center" style="padding: 5px 0px 0px 0px;">
+                                                        <a *ngIf="cat3.expanded " (click)="cat3.expanded=false ">
+                                                            <i class="mdi mdi-arrow-up-drop-circle " style="font-size: 23px; cursor: pointer; "></i>
+                                                        </a>
+                                                        <a *ngIf="!cat3.expanded " #UpCircle (click)="cat3.expanded=true ">
+                                                            <i class="mdi mdi-arrow-down-drop-circle " style="font-size: 23px; cursor: pointer; "></i>
+                                                        </a>
+                                                    </td>
+                                                    <td *ngIf="cat3.lsCuentaIngreso == 0 && cat3.lsCuentaEgreso == 0" style="border-right: 1px solid #ffff"></td>
+
+                                                    <td class="text-center ">{{cat3.nombre}} </td>
+                                                    <td class="text-center ">{{cat3.descripcion}} </td>
+                                                </tr>
+
+
+
+
+                                                <!-- tabla cuentaIE - nivel 3-->
+                                                <tr *ngIf="cat3.expanded && cat.niveles == 3" style="font-size: 12px ">
+                                                    <td colspan="12 ">
+                                                        <nav *ngIf="cat3.expanded">
+                                                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                                                <a *ngIf="cat3.lsCuentaIngreso.length > 0  ? true : false" class="nav-item nav-link active" id="nav-lsIngreso-tab" data-toggle="tab" href="#nav-lsIngreso{{indice}}" role="tab" aria-controls="nav-lsIngreso" aria-selected="false">Cuenta Ingreso</a>
+                                                                <a *ngIf="cat3.lsCuentaEgreso.length > 0  ? true : false" class="nav-item nav-link" id="nav-lsEgreso-tab" data-toggle="tab" href="#nav-lsEgreso{{indice}}" role="tab" aria-controls="nav-lsEgreso" aria-selected="false">Cuenta Egreso</a>
+                                                            </div>
+                                                        </nav>
+
+                                                        <div *ngIf="cat3.expanded" class="tab-content" id="nav-tabContent">
+                                                            <div *ngIf="cat3.lsCuentaIngreso.length > 0  ? true : false" class="tab-pane fade" id="nav-lsIngreso{{indice}}" role="tabpanel" aria-labelledby="nav-lsIngreso-tab">
+                                                                <div class="col-10" style="margin: 5px auto 0px;">
+                                                                    <div class="table-responsive">
+                                                                        <table class="table table-bordered">
+                                                                            <tr style="background: #c9e2de;;font-size: 12px;">
+                                                                                <th style=" text-align: center;">Nombre Cuenta</th>
+                                                                            </tr>
+                                                                            <tr style="font: size 12px; text-align: center;" *ngFor="let cat5 of cat3.lsCuentaIngreso;">
+                                                                                <td style="padding: 15px 12px">{{cat5.descripcion_cuenta}}</td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div *ngIf="cat3.lsCuentaEgreso.length > 0  ? true : false" class="tab-pane fade " id="nav-lsEgreso{{indice}}" role="tabpanel" aria-labelledby="nav-lsEgreso-tab">
+                                                                <div class="col-10" style="margin: 5px auto 0px;">
+                                                                    <div class="table-responsive">
+                                                                        <table class="table table-bordered">
+                                                                            <tr style="background: #c9e2de;;font-size: 12px;">
+                                                                                <th style=" text-align: center;">Nombre Cuenta</th>
+                                                                            </tr>
+                                                                            <tr style="font: size 12px; text-align: center;" *ngFor="let cat5 of cat3.lsCuentaEgreso;">
+                                                                                <td style="padding: 15px 12px">{{cat5.descripcion_cuenta}}</td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+
+
+
+
+
+
+
+
+
+                                                <!-- tabla nivel 4-->
+                                                <tr *ngIf="cat3.expanded && cat.niveles != 3" style="font-size: 12px ">
+                                                    <td colspan="12 ">
+                                                        <table class="table table-bordered " style="width: 667px; margin: 6px auto ">
+                                                            <tr style="background: rgb(168, 200, 233); font-size: 15px; color: #fff; ">
+                                                                <th class="text-center " colspan="3" style="background-color: #467A72;">NIVEL 4</th>
+                                                            </tr>
+                                                            <tr style="background: #c9e2de; ">
+                                                                <th style="width: 49px;"></th>
+                                                                <th class="text-center ">Nombre</th>
+                                                                <th class="text-center ">Descripcion</th>
+                                                            </tr>
+                                                            <tbody *ngFor="let cat4 of cat3.lscentro_costo4;let indice=index ">
+                                                                <tr>
+                                                                    <td *ngIf="(cat4.lsCuentaIngreso != undefined && cat4.lsCuentaIngreso.length > 0 ? true : false) || (cat4.lsCuentaEgreso != undefined && cat4.lsCuentaEgreso.length > 0 ? true : false)" class="text-center" style="padding: 5px 0px 0px 0px;">
+                                                                        <a *ngIf="cat4.expanded " (click)="cat4.expanded=false">
+                                                                            <i class="mdi mdi-arrow-up-drop-circle " style="font-size: 23px; cursor: pointer; "></i>
+                                                                        </a>
+                                                                        <a *ngIf="!cat4.expanded" (click)="cat4.expanded=true; showAct='show active'">
+                                                                            <i class="mdi mdi-arrow-down-drop-circle" style="font-size: 23px; cursor: pointer; "></i>
+                                                                        </a>
+                                                                    </td>
+                                                                    <td *ngIf="cat4.lsCuentaIngreso == 0 && cat4.lsCuentaEgreso == 0" style="border-right: 1px solid #ffff"></td>
+                                                                    <td class=" text-center ">{{cat4.nombre}} </td>
+                                                                    <td class="text-center ">{{cat4.descripcion}} </td>
+                                                                </tr>
+
+
+
+
+
+                                                                <!-- tabla cuentaIE - nivel 4-->
+                                                                <tr *ngIf="cat4.expanded" style="font-size: 12px ">
+                                                                    <td colspan="12 ">
+                                                                        <nav *ngIf="cat4.expanded">
+                                                                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                                                                <a *ngIf="cat4.lsCuentaIngreso.length > 0  ? true : false" class="nav-item nav-link" id="nav-lsIngreso-tab" data-toggle="tab" href="#nav-lsIngreso{{indice}}" role="tab" aria-controls="nav-lsIngreso" aria-selected="false">Cuenta Ingreso</a>
+                                                                                <a *ngIf="cat4.lsCuentaEgreso.length > 0  ? true : false" class="nav-item nav-link" id="nav-lsEgreso-tab" data-toggle="tab" href="#nav-lsEgreso{{indice}}" role="tab" aria-controls="nav-lsEgreso" aria-selected="false">Cuenta Egreso</a>
+                                                                            </div>
+                                                                        </nav>
+                                                                        <div *ngIf="cat4.expanded" class="tab-content" id="nav-tabContent">
+                                                                            <div *ngIf="cat4.lsCuentaIngreso.length > 0  ? true : false" class="tab-pane fade" id="nav-lsIngreso{{indice}}" role="tabpanel" aria-labelledby="nav-lsIngreso-tab">
+                                                                                <div class="col-10" style="margin: 5px auto 0px;">
+                                                                                    <div class="table-responsive">
+                                                                                        <table class="table table-bordered">
+                                                                                            <tr style="background: #c9e2de;;font-size: 12px;">
+                                                                                                <th style=" text-align: center;">Nombre Cuenta</th>
+                                                                                            </tr>
+                                                                                            <tr style="font: size 12px; text-align: center;" *ngFor="let cat5 of cat4.lsCuentaIngreso;">
+                                                                                                <td style="padding: 15px 12px">{{cat5.descripcion_cuenta}}</td>
+                                                                                            </tr>
+                                                                                        </table>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div *ngIf="cat4.lsCuentaEgreso.length > 0  ? true : false" class="tab-pane fade " id="nav-lsEgreso{{indice}}" role="tabpanel" aria-labelledby="nav-lsEgreso-tab">
+                                                                                <div class="col-10" style="margin: 5px auto 0px;">
+                                                                                    <div class="table-responsive">
+                                                                                        <table class="table table-bordered">
+                                                                                            <tr style="background: #c9e2de;;font-size: 12px;">
+                                                                                                <th style=" text-align: center;">Nombre Cuenta</th>
+                                                                                            </tr>
+                                                                                            <tr style="font: size 12px; text-align: center;" *ngFor="let cat5 of cat4.lsCuentaEgreso;">
+                                                                                                <td style="padding: 15px 12px">{{cat5.descripcion_cuenta}}</td>
+                                                                                            </tr>
+                                                                                        </table>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

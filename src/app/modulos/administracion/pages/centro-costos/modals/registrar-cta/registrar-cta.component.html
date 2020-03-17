@@ -1,0 +1,128 @@
+<div class="modal-header" style="justify-content: center;border-bottom: 1px solid #ffffff !important;">
+    <h5 class="modal-title" style="font-size: 15px">RESGISTRAR CTA DE {{tipo_cuenta}}</h5>
+</div>
+<div class="modal-body">
+    <div class="col-12" style="padding: 15px; border: 1px solid #c3c3c3; border-radius: 10px;">
+        <div class="col-12 row" style="margin: 0px; padding: 0px;">
+            <div class="form-group col-12">
+                <label style="font-size: 12px">Cta :</label>
+                <div style="display: flex;">
+                    <ng-select [hidden]="ingreso == true ? false : true" id="ingr" name="#centroCostoCuenta.id_cuenta" [items]="lstCuentaxIngreso" bindLabel="descripcion_cuenta" [(ngModel)]="centroCostoCuenta" (ngModelChange)="HabilitarBtnDisabledList()" placeholder="seleccione Cuenta Ingreso"
+                        style="width: 100%;" requerid></ng-select>
+                    <span [hidden]="ingreso == true ? false : true">
+                        <i (click)="InsertCuenta()" aria-disabled="idDisabled" [ngClass]="{'icono-disabled': idDisabled == true}" style="font-size: 29px; margin-left: 10px; cursor: pointer; color: #06d79c;" class="mdi mdi-plus-circle"></i>
+                    </span>
+                </div>
+                <div style="display: flex;">
+                    <ng-select [hidden]="egreso == true ? false : true" id="egr" name="#centroCostoCuenta.id_cuenta" [items]="lstCuentaxEgreso" bindLabel="descripcion_cuenta" [(ngModel)]="centroCostoCuenta" (ngModelChange)="HabilitarBtnDisabledList()" placeholder="seleccione Cuenta Egreso"
+                        style="width: 100%;"></ng-select>
+                    <span [hidden]="egreso == true ? false : true">
+                        <i (click)="InsertCuenta()" aria-disabled="idDisabled" [ngClass]="{'icono-disabled': idDisabled == true}" style="font-size: 29px; margin-left: 10px; cursor: pointer; color: #06d79c;" class="mdi mdi-plus-circle"></i>
+                    </span>
+                </div>
+                <div style="display: flex;">
+                    <ng-select [hidden]="consumo == true ? false : true" id="egr" name="#centroCostoCuenta.id_cuenta" [items]="lstCuentaxConsumo" bindLabel="descripcion_cuenta" [(ngModel)]="centroCostoCuenta" (ngModelChange)="HabilitarBtnDisabledList()" placeholder="seleccione Cuenta Consumo"
+                        style="width: 100%;"></ng-select>
+                    <span [hidden]="consumo == true ? false : true">
+                        <i (click)="InsertCuenta()" aria-disabled="idDisabled" [ngClass]="{'icono-disabled': idDisabled == true}" style="font-size: 29px; margin-left: 10px; cursor: pointer; color: #06d79c;" class="mdi mdi-plus-circle"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-12" style="margin-top: 20px;">
+            <div class="form-group col-12" style="display: flex;flex: 0 0 19%;">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="res" name="#centroCostoCuenta.reporte1" [(ngModel)]="centroCostoCuenta.reporte1">
+                    <label class="form-check-label" for="res"></label>
+                </div>
+                <label style="font-size: 12px; margin-top: 6px;">Estado de Resultados 
+                </label>
+            </div>
+            <div *ngIf="!(tipo_financiero&&tipo_cuenta=='EGRESO')" class="form-group col-12" style="display: flex;flex: 0 0 19%;">
+                <div class="form-check ">
+                    <input class="form-check-input" type="checkbox" id="caja" name="#centroCostoCuenta.reporte2" [(ngModel)]="centroCostoCuenta.reporte2">
+                    <label class="form-check-label" for="caja"></label>
+                </div>
+                <label style="font-size: 12px; margin-top: 6px;">Flujo de Caja</label>
+            </div>
+            <div *ngIf="tipo_financiero&&tipo_cuenta == 'EGRESO'" class="form-group col-12" style="display: flex;flex: 0 0 19%;">
+                <div class="col-6">
+                    <div class="form-check ">
+                        <input class="form-check-input" type="checkbox" id="caja" name="#centroCostoCuenta.reporte2" [(ngModel)]="centroCostoCuenta.reporte2">
+                        <label class="form-check-label" for="caja"></label>
+                    </div>
+                    <label style="font-size: 12px; margin-top: 6px;">Flujo de Caja</label>
+                </div>
+                <div *ngIf="centroCostoCuenta.reporte2" class="col-6">
+                    <label style="font-size: 12px">Comportamiento:</label>
+                    <div style="display: flex;">
+                        <ng-select id="ingr" name="#centroCostoCuenta.id_cuenta" [items]="lsComportamientoCuenta" bindLabel="descripcion" bindValue="tipo_comportamiento" [(ngModel)]="comportamiento_fl" placeholder="seleccione comportamiento de cuenta" style="width: 100%;" requerid></ng-select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <!-- TABLA DE INGRESO -->
+            <div class="table-responsive" [hidden]="tipo_cuenta == 'INGRESO' ? false : true">
+                <table class="table table-bordered">
+                    <tr style="background: #c9e2de;;font-size: 12px;">
+                        <th style=" text-align: center;">Nombre</th>
+                        <th style=" text-align: center;">E. Resultado</th>
+                        <th style=" text-align: center;">F. Caja</th>
+                        <th style=" text-align: center;">Eliminar</th>
+                    </tr>
+                    <tr *ngFor="let cat of CuentaIE.lsCuentaIngreso; let indice=index" style="font: size 12px; text-align: center;">
+                        <td style="padding: 15px 12px;">{{cat.descripcion_cuenta}}</td>
+                        <td style="padding: 8px 12px;">
+                            <i [hidden]="cat.reporte1 ? false : true" class="mdi mdi-check" style="color:#06d79c;font-size: 24px;"></i>
+                            <i [hidden]="!cat.reporte1 ? false : true" class="mdi mdi-minus" style="color:#dc3545;font-size: 24px;"></i>
+                        </td>
+                        <td style="padding: 8px 12px;">
+                            <i [hidden]="cat.reporte2? false : true" class="mdi mdi-check" style="color:#06d79c;font-size: 24px;"></i>
+                            <i [hidden]="!cat.reporte2? false : true" class="mdi mdi-minus" style="color:#dc3545;font-size: 24px;"></i>
+                        </td>
+                        <td style="padding: 8px 12px;">
+                            <i class="mdi mdi-delete" (click)="EliminarCuenta(indice)" style="font-size: 20px; cursor: pointer;"></i>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!-- TABLA DE EGRESO -->
+            <div class="table-responsive" [hidden]="tipo_cuenta == 'INGRESO' ? true : false">
+                <table class="table table-bordered">
+                    <tr style="background: #c9e2de;;font-size: 12px;">
+                        <th style=" text-align: center;">Nombre</th>
+                        <th style=" text-align: center;">E. Resultado</th>
+                        <th style=" text-align: center;">Flujo Caja</th>
+                        <th *ngIf="tipo_financiero&&tipo_cuenta == 'EGRESO'" style=" text-align: center;">Comportamiento Flujo Caja</th>
+                        <th style=" text-align: center;">Eliminar</th>
+                    </tr>
+                    <tr *ngFor="let cat of CuentaIE.lsCuentaEgreso; let indice=index" style="font: size 12px; text-align: center;">
+                        <td style="padding: 15px 12px;">{{cat.descripcion_cuenta}}</td>
+                        <td style="padding: 8px 12px;">
+                            <i [hidden]="cat.reporte1 ? false : true" class="mdi mdi-check" style="color:#06d79c;font-size: 24px;"></i>
+                            <i [hidden]="!cat.reporte1 ? false : true" class="mdi mdi-minus" style="color:#dc3545;font-size: 24px;"></i>
+                        </td>
+                        <td style="padding: 8px 12px;">
+                            <i [hidden]="cat.reporte2 ? false : true" class="mdi mdi-check" style="color:#06d79c;font-size: 24px;"></i>
+                            <i [hidden]="!cat.reporte2 ? false : true" class="mdi mdi-minus" style="color:#dc3545;font-size: 24px;"></i>
+                        </td>
+                        <td *ngIf="tipo_financiero&&tipo_cuenta == 'EGRESO'" style="padding: 15px 12px;">
+                            <i [hidden]="!cat.reporte2 ? false : true" class="mdi mdi-minus" style="color:#dc3545;font-size: 24px;"></i>
+                            <label [hidden]="cat.reporte2 ? false : true"> {{cat.tipo_comportamiento_reporte2}}</label>
+                        </td>
+                        <td style="padding: 8px 12px;">
+                            <i class="mdi mdi-delete" (click)="EliminarCuenta(indice)" style="font-size: 20px; cursor: pointer;"></i>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer" style="padding: 7px 15px;justify-content: center;border: none;">
+    <i class="mdi mdi-check-all" style="cursor: pointer; font-size: 35px;color: #17a2b8;" (click)="guardarCuentaIE()"></i>
+</div>x

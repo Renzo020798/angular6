@@ -1,0 +1,202 @@
+<div class="modal-header" style="justify-content: center;border-bottom: 1px solid #ffffff !important;">
+    <h5 class="modal-title" style="font-size: 15px; font-weight: bold;">NUEVO EGRESO</h5>
+</div>
+<div class="modal-body">
+    <div class="col-12" style="padding: 15px; border: 1px solid #c3c3c3; border-radius: 10px;">
+        <div class="col-12 row" style="margin: 0px; margin-bottom: 15px; padding: 0px;">
+            <div class="form-group col-3">
+                <label style="font-size: 12px">Cuenta egreso :</label>
+                <ng-select [items]="lsEgresos" bindLabel="desc_tipo_operac" bindValue="desc_tipo_operac" placeholder="seleccione" [(ngModel)]="egreso.cuenta_egreso"></ng-select>
+            </div>
+            <div class="form-group col-3">
+                <label style="font-size: 12px">Tipo Cobro :</label>
+                <ng-select [items]="lstipocobro" bindLabel="descripcion" bindValue="descripcion" placeholder="seleccione" [(ngModel)]="egreso.tipo_cobro"></ng-select>
+            </div>
+            <div class="form-group col-3">
+                <label style="font-size: 12px">Pagado  :</label>
+                <ng-select [items]="lscobro" bindLabel="descripcion" bindValue="descripcion" placeholder="seleccione" [(ngModel)]="egreso.cobro" [disabled]="true"></ng-select>
+            </div>
+            <div class="form-group col-3">
+                <label style="font-size: 12px">*Fecha Estimada :</label><br>
+                <i class="fa fa-calendar-o" aria-hidden="true" (click)="FechaEstimadaEgreso()" style="position: absolute;top:16px ;font-size: 250%;left: 15px;cursor: pointer;"></i>
+                <label style="font-size: 12px;position: absolute;top:27px ;font-size: 150%;left:60px;">{{fecha.fecha_estimada_cobro | date:'dd-MM-yyyy'}}</label>
+            </div>
+        </div>
+        <div class="col-12 row" style="margin: 0px; padding: 0px;">
+            <div class="form-group col-5" [hidden]="valiCuentaEgr">
+                <label style="font-size: 12px">Cuenta :</label>
+                <ng-select [items]="lscuentaegreso" bindLabel="descripcion_cuenta" placeholder="seleccione" [(ngModel)]="egreso.cuenta_numero" (ngModelChange)="seteCuenta($event)"></ng-select>
+            </div>
+            <div class="form-group col-4">
+                <label style="font-size: 12px">Descripcion :</label>
+                <input class="form-control form-control-sm" [(ngModel)]="egreso.descripcion" type="text">
+            </div>
+            <!-- <div class="form-group col-3">
+                <label style="font-size: 12px">Fecha real cobro :</label>
+                <ejs-datepicker [(ngModel)]="egreso.fecha_real_cobro" format='dd-MM-yyyy' type="text" id='datepicker2' placeholder='Elige una fecha'> </ejs-datepicker>
+            </div> -->
+        </div>
+    </div>
+    <div class="col-12" style="padding: 15px; border: 1px solid #c3c3c3; border-radius: 10px;margin-top: 10px;">
+        <div class="col-12 row" style="margin: 0px; margin-bottom: 15px; padding: 0px;">
+            <div class="form-group col-5">
+                <label style="font-size: 12px">*Cliente / Prestamista :</label>
+                <ng-select [items]="lscliente" bindLabel="razon_social" bindValue="id_cliente" placeholder="seleccione" [(ngModel)]="egreso.documento.id_cliente" (ngModelChange)="setRuc($event)"></ng-select>
+            </div>
+            <div class="col-5" style="margin: 23px 0 8px;">
+                <label style="font-size: 15px">RUC :</label>
+                <label style="font-size: 15px">{{egreso.documento.cliente_ruc}}</label>
+            </div>
+            <div class="col-2" style="margin: 23px 0 8px;">
+                <i class="mdi mdi-plus" aria-hidden="true" (click)="nuevoCliente()" style="font-size: 300%; margin: 15px; cursor: pointer;"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-12" style="padding: 15px; border: 1px solid #c3c3c3; border-radius: 10px;margin-top: 10px;">
+        <div class="col-12 row" style="margin: 0px; margin-bottom: 15px; padding: 0px;">
+            <div class="form-group col-12" style="margin: 14px; margin-bottom: 15px; padding: 0px;">
+                <label style="font-size: 12px">Tipo de Documento :</label>
+                <ng-select [items]="lstipodoc" bindLabel="descripcion" bindValue="codigosunat" [(ngModel)]="egreso.documento.cod_tipo_documento" placeholder="seleccione" style="width: 187px;"></ng-select>
+            </div>
+            <div class="form-group col-3">
+                <label style="font-size: 12px">Serie Doc. :</label>
+                <input class="form-control form-control-sm" [(ngModel)]="egreso.documento.serie_comprobante" type="text">
+            </div>
+            <div class="form-group col-3">
+                <label style="font-size: 12px">Nro. Doc. :</label>
+                <input class="form-control form-control-sm" [(ngModel)]="egreso.documento.nro_comprobante" type="text" (ngModelChange)="Validar_Numeros(egreso.documento.nro_comprobante)">
+            </div>
+            <div class="form-group col-5">
+                <label style="font-size: 12px">Fecha documento (estado resultado) :</label>
+                <ejs-datepicker [(ngModel)]="egreso.documento.fecha_documento" format='dd-MM-yyyy' type="text" id='datepicker3' placeholder='Elige una fecha'> </ejs-datepicker>
+            </div>
+        </div>
+        <div class="col-12 row" style="margin: 0px; padding: 0px; margin-bottom: 15px;">
+            <div class="form-group col-3">
+                <label style="font-size: 12px">*Moneda :</label>
+                <ng-select [items]="lsmoneda" bindLabel="descripcion" bindValue="descripcion" placeholder="seleccione" [(ngModel)]="egreso.documento.cod_moneda" (change)="verificaMoneda()"></ng-select>
+            </div>
+            <div *ngIf="moneda_soles">
+                <div class="form-group col-12">
+                    <label style="font-size: 12px">*S/ :</label>
+                    <input class="form-control form-control-sm" [(ngModel)]="egreso.documento.total_soles" (ngModelChange)="recalcularMontos(egreso.documento.total_soles)" minlength="{{longmax}}" maxlength="{{longmax}}" required type="text">
+                </div>
+                <div class="form-group col-3">
+                    <label style="font-size: 12px">US$ {{egreso.documento.total_dolares | number}}</label>
+                </div>
+            </div>
+            <div *ngIf="moneda_dolares">
+                <div class="form-group col-12">
+                    <label style="font-size: 12px">US$ :</label>
+                    <input class="form-control form-control-sm" [(ngModel)]="egreso.documento.total_dolares" type="text" (ngModelChange)="recalcularMontos(egreso.documento.total_dolares)" minlength="{{longmax}}" maxlength="{{longmax}}" required>
+                </div>
+                <div class="form-group col-3">
+                    <label style="font-size: 12px">S/. {{egreso.documento.total_soles | number}}</label>
+                </div>
+            </div>
+            <div class="form-group col-3">
+                <label style="font-size: 12px">TC :</label>
+                <input class="form-control form-control-sm" [(ngModel)]="egreso.documento.tipo_cambio" type="text" (ngModelChange)="recalcularMontosTipoCambio(egreso.documento.tipo_cambio)">
+            </div>
+        </div>
+        <div class="col-12 row" style="margin: 0px; padding: 0px; margin-bottom: 15px;">
+            <div class="form-group col-3">
+            </div>
+            <div class="form-group col-3">
+                <label style="font-size: 12px">Monto cobrado: {{simboloMoneda}}{{egreso.documento.total_pagado | number}} </label>
+            </div>
+            <div class="form-group col-3">
+                <i (click)="registrarPago()" class="mdi  mdi-cash" style="cursor: pointer; font-size: 35px;color: #17a2b8;margin-left: 25px;"></i>
+            </div>
+
+
+
+        </div>
+    </div>
+    <div class="col-12 row" style="margin: 0px; padding: 0px; margin-top: 10px;">
+        <div class="form-group col-3" style="display: flex;flex: 0 0 19%;">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="igv" [ngModelOptions]="{standalone: true}" [(ngModel)]="egreso.documento.igv" (ngModelChange)="calculaIgv()">
+                <label class="form-check-label" for="igv"></label>
+            </div>
+            <label style="font-size: 12px; margin-top: 6px;">Afecto IGV 
+            </label>
+        </div>
+        <div class="form-group col-1">
+            <label style="font-size: 12px; margin-top: 6px;">18%</label>
+        </div>
+        <div class="form-group col-2">
+            <label *ngIf="egreso.documento.igv" style="font-size: 12px">S/.{{egreso.documento.total_igv | number}}</label>
+        </div>
+    </div>
+    <div class="col-12 row" style="margin: 0px; padding: 0px;">
+        <div class="form-group col-3" style="display: flex;flex: 0 0 19%;">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="detracc" [ngModelOptions]="{standalone: true}" [(ngModel)]="egreso.documento.detraccion" (ngModelChange)="calculaDetraccion()">
+                <label class="form-check-label" for="detracc"></label>
+            </div>
+            <label style="font-size: 12px; margin-top: 6px;">Pago detraccion 
+            </label>
+        </div>
+        <div class="form-group col-2">
+            <input style="font-size: 13px; margin-top: 0px;width: 32px;" class="form-control form-control-sm" [(ngModel)]="egreso.documento.monto_detraccion" (ngModelChange)="calculaDetraccion()" type="number" [disabled]="!egreso.documento.detraccion">
+            <label style="font-size: 12px; margin-top: 6px;">%</label>
+        </div>
+        <div class="form-group col-2">
+            <label *ngIf="egreso.documento.detraccion" style="font-size: 12px">S/.{{egreso.documento.total_detracciones | number}}</label>
+        </div>
+        <div class="form-group col-5" style="display: flex;">
+            <label *ngIf="egreso.documento.detraccion" style="font-size: 12px; margin-top: 6px;width: 140px;">Fecha pago detraccion</label>
+            <ejs-datepicker *ngIf="egreso.documento.detraccion" [(ngModel)]="egreso.documento.fecha_pago_detraccion" format='dd-MM-yyyy' type="text" id='datepicker4' placeholder='Elige una fecha'> </ejs-datepicker>
+        </div>
+    </div>
+    <div class="col-12 row" style="margin: 0px; padding: 0px;">
+        <div class="form-group col-3" style="display: flex;">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="percepcion" [ngModelOptions]="{standalone: true}" [(ngModel)]="egreso.documento.percepcion" (ngModelChange)="calculaPercepcion()">
+                <label class="form-check-label" for="percepcion"></label>
+            </div>
+            <label style="font-size: 12px; margin-top: 6px;">Paga Percepcion 
+            </label>
+        </div>
+        <div class="form-group col-2">
+            <input style="font-size: 13px; margin-top: 0px;width: 32px;" class="form-control form-control-sm" [(ngModel)]="egreso.documento.monto_percepcion" (ngModelChange)="calculaPercepcion()" type="number" [disabled]="!egreso.documento.percepcion">
+            <label style="font-size: 12px; margin-top: 6px;">%</label>
+        </div>
+        <div class="form-group col-2">
+            <label *ngIf="egreso.documento.percepcion" style="font-size: 12px">S/.{{egreso.documento.total_percepciones | number}}</label>
+        </div>
+    </div>
+    <div class="col-12 row" style="margin: 0px; padding: 0px;">
+        <div class="form-group col-3">
+            <label style="font-size: 12px; margin-top: 6px;">Base Imponible
+            </label>
+        </div>
+        <div class="form-group col-2">
+            <label style="font-size: 12px; margin-top: 6px;">S/.{{egreso.documento.subtotal_soles | number}}</label>
+        </div>
+        <div class="form-group col-2">
+            <label style="font-size: 12px; margin-top: 6px;">$.{{egreso.documento.subtotal_dolares | number}}</label>
+        </div>
+    </div>
+    <div class="col-12 row" style="margin: 0px; padding: 0px;">
+        <div class="form-group col-3">
+            <label style="font-size: 12px; margin-top: 6px;">Total
+            </label>
+        </div>
+        <div class="form-group col-2">
+            <label style="font-size: 12px; margin-top: 6px;">S/.{{egreso.documento.total_soles | number}}</label>
+        </div>
+        <div class="form-group col-2">
+            <label style="font-size: 12px; margin-top: 6px;">$.{{egreso.documento.total_dolares | number}}</label>
+        </div>
+    </div>
+</div>
+<div class="modal-footer" style="padding: 7px 15px;justify-content: center;">
+    <p style="font-size: 12px;position: absolute;left: 30px;opacity: 0.7;"><span style="font-size: 30px;position: absolute;top: -2px;left: -15px; ;opacity: 0.7;">*</span>Campos obligatorios</p>
+
+    <!-- <i (click)="close()" class="mdi mdi-close-circle" style="cursor: pointer; font-size: 35px;color: #dc3545;margin-right: 25px;"></i>
+    <i (click)="Previsualizar()" class="mdi mdi-content-save" style="cursor: pointer; font-size: 35px;color: #17a2b8;margin-left: 25px;"></i> -->
+    <button class="btn btn-warning btn-sm min" data-dismiss="modal" (click)="close()">Cancelar</button>
+    <button class="btn btn-primary btn-sm min" (click)="Previsualizar()">Previsualizar</button>
+</div>

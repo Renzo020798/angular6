@@ -1,0 +1,123 @@
+<div class="modal-header" style="justify-content: center;border-bottom: 1px solid #ffffff !important;">
+    <h5 class="modal-title" style="font-size: 15px; font-weight: bold;">PREVISUALIZACION DEL NUEVO EGRESO</h5>
+</div>
+<div class="modal-body">
+    <div class="col-12" style="padding: 15px; border: 1px solid #c3c3c3; border-radius: 10px;margin-top: 10px;">
+        <div class="col-12 row" style="margin: 0px; margin-bottom: 15px; padding: 0px;">
+            <div class="form-group col-5" style="display: grid;">
+                <label style="font-size: 12px">Cliente / Prestamista :</label>
+                <label style="font-size: 12px">{{egreso.documento.cliente_razon_social}}</label>
+            </div>
+            <div class="col-5" style="margin: 23px 0 8px;">
+                <label style="font-size: 15px">RUC :</label>
+                <label style="font-size: 15px">{{egreso.documento.cliente_ruc}}</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-12" style="padding: 15px; border: 1px solid #c3c3c3; border-radius: 10px;margin-top: 10px;">
+        <div class="col-12 row" style="margin: 0px; margin-bottom: 15px; padding: 0px;">
+            <div class="form-group col-4" style="display: grid;">
+                <label style="font-size: 12px">Tipo de Documento :</label>
+                <label style="font-size: 12px">{{egreso.documento.tipodoc_descripcion}}</label>
+            </div>
+            <div class="form-group col-3" style="display: grid;">
+                <label style="font-size: 12px">Nro. Doc :</label>
+                <label style="font-size: 12px">{{egreso.documento.serie_comprobante}} - {{egreso.documento.nro_comprobante}}</label>
+            </div>
+            <div class="form-group col-5" style="display: grid;">
+                <label style="font-size: 12px">Fecha documento (estado resultado) :</label>
+                <label style="font-size: 12px">{{egreso.documento.fecha_documento | date: 'dd-MM-yyyy'}}</label>
+            </div>
+        </div>
+        <div class="col-12 row" style="margin: 0px; padding: 0px; margin-bottom: 15px;">
+            <div class="form-group col-3" style="display: grid;">
+                <label style="font-size: 12px">Moneda :</label>
+                <label style="font-size: 12px">{{egreso.documento.cod_moneda}}</label>
+            </div>
+            <div class="form-group col-2">
+                <label style="font-size: 12px">Subtotal soles</label>
+                <label style="font-size: 12px">S/. : {{egreso.documento.subtotal_soles}}</label>
+            </div>
+            <div class="form-group col-2">
+                <label style="font-size: 12px">Subtotal dolares</label>
+                <label style="font-size: 12px">US$ : {{egreso.documento.total_dolares}}</label>
+            </div>
+            <div class="form-group col-3">
+                <label style="font-size: 12px">TC :</label>
+                <label style="font-size: 12px">{{egreso.documento.tipo_cambio}}</label>
+            </div>
+        </div>
+        <div class="col-12 row" style="margin: 0px; padding: 0px; margin-bottom: 15px;">
+            <label style="font-size: 12px">Monto pagado :</label>
+            <label style="font-size: 12px">{{egreso.documento.total_pagado}}</label>
+        </div>
+    </div>
+    <div *ngIf="egreso.documento.igv" class="col-12 row" style="margin: 0px; padding: 0px; margin-top: 10px;">
+        <div class="form-group col-3" style="display: flex;flex: 0 0 19%;">
+            <label style="font-size: 12px; margin-top: 6px;margin-right: 7px;">SI</label>
+            <label style="font-size: 12px; margin-top: 6px;">Afecto IGV 
+            </label>
+        </div>
+        <div class="form-group col-1">
+            <label style="font-size: 12px; margin-top: 6px;">18%</label>
+        </div>
+        <div class="form-group col-2">
+            <label style="font-size: 12px; margin-top: 6px;">S/.{{egreso.documento.total_igv}}</label>
+        </div>
+    </div>
+    <div *ngIf="egreso.documento.detraccion" class="col-12 row" style="margin: 0px; padding: 0px;">
+        <div class="form-group col-3" style="display: flex;flex: 0 0 19%;">
+            <label style="font-size: 12px; margin-top: 6px;margin-right: 7px;">SI</label>
+            <label style="font-size: 12px; margin-top: 6px;">Pago detraccion 
+            </label>
+        </div>
+        <div class="form-group col-1">
+            <label style="font-size: 12px; margin-top: 6px;">{{egreso.documento.monto_detraccion}}%</label>
+        </div>
+        <div class="form-group col-2">
+            <label style="font-size: 12px; margin-top: 6px;">S/.{{egreso.documento.total_detracciones}}</label>
+        </div>
+        <div class="form-group col-6" style="display: flex;">
+            <label style="font-size: 12px; margin-top: 6px;width: 140px;">Fecha pago detraccion</label>
+            <label style="font-size: 12px">{{egreso.documento.fecha_pago_detraccion | date: 'dd-MM-yyyy'}}</label>
+        </div>
+    </div>
+    <div *ngIf="egreso.documento.percepcion" class="col-12 row" style="margin: 0px; padding: 0px;">
+        <div class="form-group col-3" style="display: flex;">
+            <label style="font-size: 12px; margin-top: 6px;margin-right: 7px;">SI</label>
+            <label style="font-size: 12px; margin-top: 6px;">Paga Percepcion 
+            </label>
+        </div>
+        <div class="form-group col-1">
+            <label style="font-size: 12px; margin-top: 6px;">{{egreso.documento.monto_percepcion}}%</label>
+        </div>
+        <div class="form-group col-2">
+            <label style="font-size: 12px; margin-top: 6px;">S/.{{egreso.documento.total_percepciones}}</label>
+        </div>
+    </div>
+    <div class="col-12 row" style="margin: 0px; padding: 0px;">
+        <div class="form-group col-3">
+            <label style="font-size: 12px; margin-top: 6px;">Base Imponible
+            </label>
+        </div>
+        <div class="form-group col-2">
+            <label style="font-size: 12px; margin-top: 6px;">S/.{{egreso.documento.subtotal_soles}}</label>
+        </div>
+    </div>
+    <div class="col-12 row" style="margin: 0px; padding: 0px;">
+        <div class="form-group col-3">
+            <label style="font-size: 12px; margin-top: 6px;">Total
+            </label>
+        </div>
+        <div class="form-group col-2">
+            <label style="font-size: 12px; margin-top: 6px;">S/.{{egreso.documento.total_soles}}</label>
+        </div>
+    </div>
+</div>
+<div class="modal-footer" style="padding: 7px 15px;justify-content: center;">
+    <!-- <i (click)="close()" class="mdi mdi-close-circle" style="cursor: pointer; font-size: 35px;color: #dc3545;margin-right: 25px;"></i>
+    <i (click)="confirmar()" class="mdi mdi-content-save" style="cursor: pointer; font-size: 35px;color: #17a2b8;margin-left: 25px;"></i> -->
+    <button class="btn btn-warning btn-sm min" data-dismiss="modal" (click)="close()">Cancelar</button>
+    <button class="btn btn-primary btn-sm min" (click)="confirmar()">Confirmar</button>
+
+</div>

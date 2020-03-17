@@ -1,0 +1,23 @@
+<form #nuevocuenta="ngForm" novalidate>
+    <div class="modal-header" style="justify-content: center;">
+        <h5 class="modal-title" style="font-size:15px; font-weight: bold;">Margen de contribucion</h5>
+    </div>
+
+    <div class="modal-body">
+        <div class="col-12" style="margin: 0;">
+            <div class="col-12 mt-3 mb-3" style="border:2px solid #d6d6d6; border-radius: 15px; padding: 10px;flex: 0 0 48%; margin: 0 7px 0 0;">
+                <div class="form-row col-12">
+                    <div class="col-12 mb-3">
+                        <label for="desc" style="font-weight: bold;">Porcentaje :</label>
+                        <input #Porcentaje id="desc" type="number" class="form-control form-control-sm min" [(ngModel)]="porcentaje_venta.porcentaje" (ngModelChange)="validarPorcentaje(porcentaje_venta.porcentaje)" name="#cuenta.descripcion_cuenta" autocomplete="off" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-warning btn-sm min" (click)="close()" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary btn-sm min" (click)="UpdateInsertPorcentajeVentas()" [disabled]="nuevocuenta.form.invalid" style="cursor: pointer">Aceptar</button>
+    </div>
+</form>

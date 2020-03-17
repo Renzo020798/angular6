@@ -1,0 +1,20 @@
+<div class="modal-header" style="justify-content: center;">
+    <h5 class="modal-title" style="font-size: 15px;">Enviar email</h5>
+</div>
+<div class="modal-body">
+    <div class="col-12" style="margin: 0;">
+        <div class="col-12 mt-3 mb-3 mt-3" style="border:2px solid #d6d6d6; border-radius: 15px; padding: 10px;flex: 0 0 48%; margin: 0 7px 0 0;">
+            <div class="form-row col-12">
+                <div class="col-12 mb-3">
+                    <label for="razso" style="font-weight: bold;">Ingrese el asunto :</label>
+                    <input type="text" class="form-control form-control-sm" style="width: 50%;margin-right: 14px;" [(ngModel)]="input_documento_email.asunto">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button (click)="close()" type="button" class="btn btn-danger btn-sm min">Cancelar</button>
+    <button (click)="envioCPE()" type="button" class="btn btn-info btn-sm min" data-dismiss="modal">Confirmar</button>
+</div>

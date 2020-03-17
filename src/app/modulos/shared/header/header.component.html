@@ -1,0 +1,179 @@
+<!-- ============================================================== -->
+<!-- Topbar header - style you can find in pages.scss -->
+<!-- ============================================================== -->
+
+<header class="topbar">
+    <nav class="navbar top-navbar navbar-expand-lg navbar-light">
+        <!-- ============================================================== -->
+        <!-- Logo -->
+        <!-- ============================================================== -->
+        <div class="navbar-header">
+            <a class="navbar-brand">
+                <!-- Logo icon -->
+                <b style="width: 70px; display: none">
+                    <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                    <!-- Dark Logo icon -->
+                    <!-- <img src="assets/images/logo-icon.png" alt="homepage" class="dark-logo" /> -->
+                    <!-- Light Logo icon -->
+                    <!-- <img src="assets/images/logo-light-icon.png" alt="homepage" class="light-logo" /> -->
+                    <!-- <img src="assets/images/background/icon-gemp.png" alt="homepage" class="light-logo" style="width: 44px; padding-bottom: 3px"/> -->
+                </b>
+                <!--End Logo icon -->
+                <!-- Logo text -->
+                <span style="margin: 0px 52px;">
+                    <!-- dark Logo text -->
+                    <!-- <a style="font-weight: bold;color: #000;font-size: 20px;margin-left: 9px;padding-top: 10px;" class="dark-logo" alt="homepage">GESTION</a> -->
+                    <!-- <img src="assets/images/logo-text.png" alt="homepage" class="dark-logo" /> -->
+                    <!-- Light Logo text -->    
+                    <!-- <a style="font-weight: bold;color: #000;font-size: 25px;padding-top: 10px; transform: translate(-20px, 3px)" class="light-logo" alt="homepage">ideKick</a> -->
+                    <!-- <img src="assets/images/background/logo-gemp_sinfondo.png" class="light-logo" alt="homepage" style="width: 96px;"/> -->
+ 
+                    <!-- <img src="assets/images/logo-light-text.png" class="light-logo" alt="homepage" /> -->
+                </span>
+            </a>
+
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Logo -->
+        <!-- ============================================================== -->
+        <div class="navbar-collapse">
+
+
+            <!-- ============================================================== -->
+            <!-- toggle and nav items -->
+            <!-- ============================================================== -->
+            <ul class="navbar-nav mr-auto fadeInRight">
+                <!-- This is  -->
+                <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
+                <li class="nav-item"> <a class="nav-link sidebartoggler hidden-sm-down waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
+                <li class="nav-item hidden-sm-down"></li>
+                <li class="nav-item dropdown ">
+                    <a class="nav-link dropdown-toggle waves-effect waves-dark"> 
+                         {{_siderService.nameModulo}}
+                    </a>
+                </li>
+                <!-- <li class="nav-item dropdown" *ngIf="nivel_Admin" style="width: 330px; display: flex">
+                    <a class="nav-link dropdown-toggle waves-effect waves-dark" style="font-size: 13px;font-weight: 500;"> 
+                            Empresa :
+                        </a>
+                    <ng-select style="width: 235px;padding: 8px 0px;" [items]="lsCompany" bindLabel="razon_social_empresa" placeholder="seleccione" [ngModel]="empresa" (ngModelChange)="setStorageUsuario($event)"></ng-select>
+                </li> -->
+                <!-- <li style="width: 237px;">
+                    <div class="form-group row" style="width: 260px">
+                        <label class="col-4 col-form-label" style="color: #fff">Almacen:  </label>
+                        <ng-select style="width: 150px;" [items]="lsAlmacen" [disabled]="idDisabled" bindLabel="desc_almacen" placeholder="seleccione" [ngModel]="almacen" (ngModelChange)="setStorageAlmacen($event)"></ng-select>
+                    </div>
+                </li>
+                <li style="width: 218px;">
+                    <div class="form-group row" style="width: 260px">
+                        <label class="col-3 col-form-label" style="color: #fff">Año:</label>
+                        <ng-select style="width: 150px;" [items]="lsAno" bindLabel="valor" placeholder="seleccione" [ngModel]="ano.valor" (ngModelChange)="setStorageAno($event)"></ng-select>
+                    </div>
+                </li>
+                <li style="width: 218px;">
+                    <div class="form-group row" style="width: 260px">
+                        <label class="col-3 col-form-label" style="color: #fff">Mes:</label>
+                        <ng-select style="width: 150px;" [items]="lsMes" [disabled]="fechaDisabled" bindLabel="valor" placeholder="seleccione" [ngModel]="mes.valor" (ngModelChange)="setStorageMes($event)"></ng-select>
+                    </div>
+                </li> -->
+
+
+                <!-- <div>
+                    <ng-select [items]="lsAño" bindLabel="valor" placeholder="seleccione" [ngModel]="pdo_ano" (ngModelChange)="setStoragePdoAño($event)"></ng-select>
+
+                </div> -->
+            </ul>
+
+            <!-- ============================================================== -->
+            <!-- User profile and search -->
+            <!-- ============================================================== -->
+            <ul class="navbar-nav my-lg-0">
+                <!-- ============================================================== -->
+                <!-- Search -->
+                <!-- ============================================================== -->
+                <!-- <li class="nav-item dropdown ">
+                    <a class="nav-link dropdown-toggle waves-effect waves-dark"> 
+                         {{empresa.razonsocial| truncate:[20, '...']}}
+                    </a>
+                </li> -->
+
+                <!-- <li class="nav-item hidden-xs-down search-box"> <a class="nav-link hidden-sm-down waves-effect waves-dark" href="javascript:void(0)"><i class="ti-search"></i></a>
+                    <div class="app-search">
+                        <input #input (keyup.enter)="buscar( input.value )" type="text" class="form-control" placeholder="Buscar y enter"> <a class="srh-btn"><i class="ti-close"></i></a>
+                    </div>
+                </li> -->
+
+
+                <!-- ============================================================== -->
+                <!-- Messages -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- End Messages -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- mega menu -->
+                <!-- ============================================================== -->
+                <!-- <li class="nav-item ">
+                    <a class="nav-link waves-effect waves-dark">
+                        <i class="mdi mdi-view-grid right-side-toggle "></i>
+                    </a>
+                </li> -->
+
+                <!-- ============================================================== -->
+                <!-- End mega menu -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Language -->
+                <!-- ============================================================== -->
+                <!-- <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="flag-icon flag-icon-us"></i></a>
+                    <div class="dropdown-menu dropdown-menu-right animated bounceInDown"> <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-in"></i> India</a> <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-fr"></i> French</a> <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-cn"></i> China</a>                        <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-de"></i> Dutch</a> </div>
+                </li> -->
+                <!-- ============================================================== -->
+                <!-- Profile -->
+                <!-- ============================================================== -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle waves-effect waves-dark " href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img *ngIf="logo" [src]="empresa.urlimagen" alt="user" style="width: initial; height: -webkit-fill-available;" />
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right animated flipInY">
+                        <ul class="dropdown-user chat-left-inner">
+                            <li>
+                                <div class="dw-user-box">
+                                    <div class="u-img" style="border-radius: 0px;width: 100%; text-align: center;">
+                                        <img *ngIf="logo" style="border-radius: 0px; width: 100px;" [src]="empresa.urlimagen" alt="user">
+                                    </div>
+                                    <br>
+                                    <div class="u-text" style="width: 100%; text-align: center; padding-left: 0px;">
+                                        <!-- <h4> {{ empresa.nro_documento_empresa }} </h4> -->
+                                        <br>
+                                        <!-- <h4 class="text-muted text-megna"> {{ empresa.razon_social_empresa| truncate:[20, '...'] }} </h4> -->
+                                        <!-- <a routerLink="/datoscuenta" class="btn btn-rounded btn-danger btn-sm">Ver perfil de la empresa</a> -->
+                                    </div>
+                                </div>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <div class="u-text" style="width: 100%; text-align: center; padding-left: 0px;">
+                                <br>
+                                <h5 class="text-muted text-megna" style="line-height: 5px !important;"> Nombre Comercial : </h5>
+                                <!-- <h5 class="text-muted text-megna" style="line-height: 12px !important; margin: 0px 40px;"> {{ empresa.nombre_comercial_empresa }} </h5> -->
+                                <br>
+                                <br>
+                                <!-- <h5 class="text-muted text-megna" style="line-height: 5px !important;"> {{ empresa.tipo_doc_empresa}} : </h5>
+                                <h5 class="text-muted text-megna" style="line-height: 10px !important;"> {{ empresa.nro_documento_empresa| truncate:[20, '...'] }} </h5>
+                                <br> -->
+                                <h5 class="text-muted text-megna" style="line-height: 5px !important;"> Dirección : </h5>
+                                <!-- <h5 class="text-muted text-megna" style="line-height: 12px !important; margin: 0px 40px;"> {{ empresa.direccion_empresa }} </h5> -->
+                            </div>
+                            <!-- <li role="separator" class="divider"></li>
+                            <li><a (click)="_usuarioService.logout()" class="pointer"><i class="fa fa-power-off"></i> Logout</a></li> -->
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<!-- ============================================================== -->
+<!-- End Topbar header -->
+<!-- ============================================================== -->

@@ -1,0 +1,97 @@
+<hr>
+<div class="col-12 row">
+    <div class="col-8 row">
+        <!-- <div class="form-group col-6">
+            <label style="font-size: 12px">Seleccione un reporte :</label>
+            <ng-select [items]="lsReporte" bindLabel="nombre" bindValue="codigo" placeholder="seleccione" [(ngModel)]="codigo"></ng-select>
+        </div> -->
+        <div class="form-group col-6">
+            <label style="font-size: 12px">Seleccione un año :</label>
+            <ng-select [items]="lsAno" bindLabel="desc_periodo_año" bindValue="desc_periodo_año" placeholder="seleccione" [(ngModel)]="periodo_anno"></ng-select>
+        </div>
+
+        <div class="preloader" *ngIf="preload">
+            <div class="loader2">
+                <!-- <div class="loader__figure"></div> -->
+                <p class="loader__label">
+                    <img src="assets\images\Double Ring-1s-200px.gif" />
+                </p>
+            </div>
+        </div>
+        <!-- <div class="form-group col-6">
+            <i class="fa fa-download" aria-hidden="true" (click)="descargarReporte()" style="font-size: 250%; margin: 15px; cursor: pointer;"></i>
+        </div> -->
+    </div>
+    <div class="col-12 row" style="margin-top: 40px;">
+        <div class="col-4" id="FM">
+            <h6 style="text-align: center; text-transform: uppercase; font-size: 13px;">Flujo Mensual</h6>
+            <div style="text-align: center; padding-top: 13px; height: 112px;">
+                <i class="fa fa-calendar" style="font-size: 90px; cursor: pointer;" aria-hidden="true" (click)="descargarReporte('FM')"></i>
+                <span style="position: absolute; z-index: 10; transform: translate(-40px, 45px); background: #fdfdfd; opacity: 0.95; border-radius: 100%;">
+                    <i class="mdi mdi-coin" style="font-size: 60px; cursor: pointer;" (click)="descargarReporte('FM')"></i>
+                </span>
+            </div>
+        </div>
+        <div class="col-4" id="FS">
+            <h6 style="text-align: center; text-transform: uppercase; font-size: 13px;">Flujo Semanal</h6>
+            <div style="text-align: center; padding-top: 13px; height: 112px;">
+                <i class="fa fa-credit-card" style="font-size: 90px; cursor: pointer;" aria-hidden="true" (click)="descargarReporte('FS')"></i>
+                <span style="position: absolute; z-index: 10; transform: translate(-40px, 45px); background: #fdfdfd; opacity: 0.95; border-radius: 100%;">
+                    <i class="mdi mdi-clock" style="font-size: 60px; cursor: pointer;" (click)="descargarReporte('FS')"></i>
+                </span>
+            </div>
+        </div>
+        <div class="col-4" id="ERD">
+            <h6 style="text-align: center; text-transform: uppercase; font-size: 13px;">Estado Resultados Detallado</h6>
+            <div style="text-align: center; padding-top: 13px; height: 112px;">
+                <i class="mdi mdi-script" style="font-size: 90px; cursor: pointer;" (click)="descargarReporte('ERD')"></i>
+                <span style="position: absolute; z-index: 10; transform: rotate(-45deg); top: 60px; right: 119px;">
+                    <i class="mdi mdi-pen" style="font-size: 60px; cursor: pointer;" (click)="descargarReporte('ERD')"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 row" style="margin-top: 40px;">
+        <div class="col-4" id="ERR">
+            <h6 style="text-align: center; text-transform: uppercase; font-size: 13px;">Estado Resultados Resumen</h6>
+            <div style="text-align: center; height: 117px;">
+                <i class="fa fa-line-chart" aria-hidden="true" style="font-size: 90px; cursor: pointer; transform: translate(10px, 24px);" (click)="descargarReporte('ERR')"></i>
+                <span style="position: absolute;">
+                    <i class="mdi mdi-coin" style="font-size: 45px; cursor: pointer;" (click)="descargarReporte('ERR')"></i>
+                </span>
+            </div>
+        </div>
+        <div class="col-4" id="ERR">
+            <h6 style="text-align: center; text-transform: uppercase; font-size: 13px;">Distribucion de Ventas</h6>
+            <div style="text-align: center; padding-top: 13px; height: 112px; cursor: pointer;">
+                <i class="mdi mdi-margin" style="font-size: 90px; cursor: pointer;" (click)="descargarReporte('PV')"></i>
+            </div>
+        </div>
+        <div class="col-4" id="CPP">
+            <h6 style="text-align: center; text-transform: uppercase; font-size: 13px;">Cuenta por Cobrar</h6>
+            <div style="text-align: center; padding-top: 13px; height: 112px;">
+                <i class="mdi mdi-folder-account" style="font-size: 90px; cursor: pointer;" (click)="descargarReporte('CC')"></i>
+                <span style="position: absolute; transform: translate(-50px, -12px);"> 
+                    <i class="mdi mdi-cash" style="font-size: 45px; cursor: pointer;" (click)="descargarReporte('CC')"></i>
+                </span>
+                <span style="position: absolute; transform: translate(-8px, -1px);"> 
+                    <i class="mdi mdi-arrow-left-bold-circle" style="font-size: 27px; cursor: pointer;" (click)="descargarReporte('CC')"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 row" style="margin-top: 40px; justify-content: center;">
+        <div class="col-4" id="CPC">
+            <h6 style="text-align: center; text-transform: uppercase; font-size: 13px;">Cuenta por Pagar</h6>
+            <div style="text-align: center; padding-top: 13px; height: 112px;">
+                <i class="mdi mdi-folder-account" style="font-size: 90px; cursor: pointer;" (click)="descargarReporte('CP')"></i>
+                <span style="position: absolute; transform: translate(-44px, -1px);"> 
+                    <i class="mdi mdi-arrow-right-bold-circle" style="font-size: 27px; cursor: pointer;" (click)="descargarReporte('CP')"></i>
+                </span>
+                <span style="position: absolute; transform: translate(-15px, -12px);"> 
+                    <i class="mdi mdi-cash" style="font-size: 45px; cursor: pointer;" (click)="descargarReporte('CP')"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

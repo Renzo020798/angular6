@@ -1,0 +1,24 @@
+<hr>
+<div class="col-12 row">
+  
+</div>
+<div class="table-responsive">
+    <table class="table table-bordered ">
+        <tr style="background: #c9e2de;;font-size: 12px">
+            <th class="text-center">Tipo Parametro</th>
+            <th class="text-center">Valor</th>
+            <th class="text-center">Editar</th>
+            <th class="text-center">Eliminar</th>
+        </tr>
+        <tr style="font-size: 12px" *ngFor="let cat of lsParametro;let indice=index">
+            <td class="text-center">{{cat.tipo_parametro}}</td>
+            <td class="text-center">{{cat.valor}}</td>
+            <td class="text-center">
+                <i class="mdi mdi-pencil"   aria-hidden="true" style="cursor: pointer; font-size: 25px;"></i>
+            </td>
+            <td class="text-center">
+                <i class="mdi mdi-delete"   aria-hidden="true" style="cursor: pointer; font-size: 25px;"></i>
+            </td>
+        </tr>
+    </table>
+</div>

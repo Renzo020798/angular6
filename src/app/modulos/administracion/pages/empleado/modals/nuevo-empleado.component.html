@@ -1,0 +1,47 @@
+<form #nuevousuario="ngForm" novalidate>
+    <div class="modal-header" style="justify-content: center;">
+        <h5 class="modal-title" style="font-size:15px; font-weight: bold; text-transform: uppercase;">{{tituloEmpleado}}</h5>
+    </div>
+    <div class="modal-body">
+        <div class="col-12">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label min">*Nombre :</label>
+                <div class="col-sm-6">
+                    <input [(ngModel)]="user.name" name="#user.name" type="text" class="form-control form-control-sm min" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label min">*Username :</label>
+                <div class="col-sm-6">
+                    <input [(ngModel)]="user.username" name="#user.username" type="text" class="form-control form-control-sm min" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label min">Email :</label>
+                <div class="col-sm-6">
+                    <input [(ngModel)]="user.email" name="#user.email" type="email" class="form-control form-control-sm min">
+
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label min">*Contraseña :</label>
+                <div class="col-sm-6">
+                    <input [(ngModel)]="user.password" name="#user.password" type="text" class="form-control form-control-sm min" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label min">*Perfil :</label>
+                <div class="col-sm-6">
+                    <!-- <option>Empresa 1</option> -->
+                    <ng-select [items]="lsperfiles" name="#user.idperfiles" bindLabel="nombres" bindValue="id_perfiles" placeholder="seleccione" [(ngModel)]="user.idperfiles" required></ng-select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <p style="font-size: 12px;position: absolute;left: 30px;opacity: 0.7;">Campos obligatorios</p>
+        <span style="font-size: 30px;position: absolute;top: 252px;left: 10px;opacity: 0.7;">*</span>
+        <button type="button" class="btn btn-warning btn-sm min" (click)="close()" data-dismiss="modal" style="cursor: pointer">Cancelar</button>
+        <button type="button" class="btn btn-primary btn-sm min" [disabled]="nuevousuario.form.invalid" (click)="insertUsers()" style="cursor: pointer">Aceptar</button>
+    </div>
+</form>

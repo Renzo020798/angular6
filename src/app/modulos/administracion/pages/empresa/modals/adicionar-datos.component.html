@@ -1,0 +1,34 @@
+<div class="modal-header" style="justify-content: center;border-bottom: 1px solid #ffffff !important;">
+    <h5 class="modal-title" style="font-size: 15px; font-weight: bold;">REGISTRAR SALDO INICIAL CAJA </h5>
+</div>
+<div class="modal-body">
+    <div class="col-12" style="margin: 0;">
+        <div class="col-12" style="padding: 15px; border: 1px solid #c3c3c3; border-radius: 10px;">
+            <div class="col-12 row" style="margin: 0px; padding: 0px;">
+                <label style="font-size: 15px">{{cuenta.descripcion_cuenta}} </label>
+                <div class="col-12 row" style="margin-bottom: 15px;">
+                    <div class="form-group col-12">
+
+                        <label style="font-size: 12px">Seleccione un Año :</label>
+                        <ng-select [items]="lsAno" bindLabel="desc_periodo_año" placeholder="Seleccione un año" [(ngModel)]="valoresIniciales.ano" (ngModelChange)="validaAno($event)"></ng-select>
+                    </div>
+
+                </div>
+                <div class="form-group col-12 row">
+                    <div class="col-6" style="padding: 10px 15px;">
+                        <label style="font-size: 12px; margin: 0px;">Saldo inicial :</label>
+                    </div>
+                    <div class="col-4">
+                        <input style="width: 80px;" class="form-control form-control-sm" [(ngModel)]="valoresIniciales.valor_inicial" type="text" name="#valoresIniciales.valor_inicial" (ngModelChange)="validarvalor(valoresIniciales.valor_inicial)">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer" style="padding: 7px 15px;justify-content: center;border: none;">
+    <!-- <i (click)="close()" class="mdi mdi-close-circle" style="cursor: pointer; font-size: 35px;color: #dc3545;margin-right: 25px;"></i>
+    <i (click)="registrarValorInicial()" class="mdi  mdi-plus-circle" style="cursor: pointer; font-size: 35px;color: #17a2b8;margin-left: 25px;"></i> -->
+    <button (click)="close()" type="button" class="btn btn-warning btn-sm min" data-dismiss="modal">Cancelar</button>
+    <button (click)="registrarValorInicial()" class="btn btn-primary btn-sm min">Aceptar</button>
+</div>

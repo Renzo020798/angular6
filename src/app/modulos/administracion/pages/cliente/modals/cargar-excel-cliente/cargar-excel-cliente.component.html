@@ -1,0 +1,42 @@
+<div class="modal-header" style="justify-content: center;">
+    <h5 class="modal-title" style="font-size:15px;">Cargar Nuevo Archivo</h5>
+</div>
+
+<div class="modal-body">
+    <div class="row animated fadeIn" *ngIf="cargando">
+        <div class="col-sm-12">
+            <div class="alert alert-warning text-center" style="font-size: x-large;">
+                <strong>Cargando</strong>
+                <br>
+                <i class="fa fa-refresh fa-spin fa-2x"></i>
+                <br>
+                <span>Espere por favor</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 mt-3 mb-3" style="border:2px solid #d6d6d6; border-radius: 15px; padding: 10px;flex: 0 0 48%; margin: 0 7px 0 0;" *ngIf="!cargando">
+        <div class="col-12">
+            <div class="col-12 card-body" align="center">
+                <h4 class="card-title">Descargar modelo base</h4>
+                <i class=" card-title mdi mdi-folder-download" (click)="bajarExcel()" style="font-size: 52px; cursor: pointer;color:#29c599;"></i>
+                <br><br>
+                <br><br>
+                <div>
+                    <button type="button" class="btn btn-success btn-sm min" style="width: 40%; margin: 0px 10px; padding: 0px;">
+                      <span style="font-size: 21px;"><i class="mdi mdi-folder-upload"></i></span>
+                      <label style="font-weight: bold;margin: 0px;font-size: 18px;cursor: pointer;">Subir archivo</label>
+                  </button>
+                    <span>
+                    <input type="file" (change)="seleccionArchivo($event.target.files[0])" class="form-control form-control-sm" style="width:27%; position:absolute; height:34px; left:0px; opacity:0; transform: translateX(83px);">
+                  </span>
+
+                    <button type="button" (click)="close()" class="btn btn-danger btn-sm min" style="width: 30%; margin: 0px 10px; padding: 0px;">
+                    <span style="font-size: 21px;"><i class="mdi mdi-folder-remove"></i></span>
+                    <label style="font-weight: bold;margin: 0px;font-size: 18px;cursor: pointer;">Cancelar</label>
+                  </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

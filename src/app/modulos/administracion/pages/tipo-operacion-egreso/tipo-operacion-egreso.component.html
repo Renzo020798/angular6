@@ -1,0 +1,27 @@
+<hr>
+<div class="col-12 row">
+    <div class="col-8 row">
+        <div class="form-group col-6">
+            <i class="mdi mdi-plus-circle" aria-hidden="true" (click)="InsertarTipoOperacionEgreso()" style=" font-size: 300%; margin: 15px; cursor: pointer; "></i>
+        </div>
+    </div>
+</div>
+<div class="table-responsive ">
+    <table class="table table-bordered ">
+        <tr style="background: #c9e2de;;font-size: 12px ">
+            <th class="text-center ">Descripcion</th>
+            <th class="text-center ">Editar</th>
+            <th class="text-center ">Eliminar</th>
+        </tr>
+        <tr style="font-size: 12px " *ngFor="let cat of lstaTipoOperacionEgreso;let indice=index ">
+
+            <td class="text-center ">{{cat.desc_tipo_operac}}</td>
+            <td class="text-center ">
+                <i class="mdi mdi-pencil " aria-hidden="true " (click)="ActualizarTipoOperacionEgreso(cat)" style="cursor: pointer; font-size: 25px; "></i>
+            </td>
+            <td class="text-center ">
+                <i class="mdi mdi-delete " aria-hidden="true " (click)="EliminarTipoOperacionEgreso(indice)" style="cursor: pointer; font-size: 25px; "></i>
+            </td>
+        </tr>
+    </table>
+</div>

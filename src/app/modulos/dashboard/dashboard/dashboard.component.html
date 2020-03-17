@@ -1,0 +1,33 @@
+<hr>
+<div class="col-12 row" style="margin: 0">
+    <div class="form-group col-6" style="margin-bottom: 20px">
+        <label style="font-size: 12px">Seleccione un año :</label>
+        <ng-select [items]="lsAno" bindLabel="desc_periodo_año" bindValue="desc_periodo_año" placeholder="seleccione" [(ngModel)]="periodo_anno" (ngModelChange)="retornaGraficosPorAno()"></ng-select>
+    </div>
+</div>
+<div class="col-12 row" style="top: 28px;margin-bottom:28px; margin: 0">
+    <div class="col-8">
+        <canvas id="lineChart" class="chartjs-render-monitor" width="650" height="273" style="background: rgba(255, 255, 255, 1);"></canvas>
+    </div>
+    <div class="col-4">
+        <canvas id="doughnutChart" class="chartjs-render-monitor" width="360" height="300" style="background: rgba(255, 255, 255, 1);"></canvas>
+    </div>
+</div>
+<div class="col-12 row" style="top: 28px; margin: 0">
+    <div class="col-8">
+        <canvas id="lineChart2" class="chartjs-render-monitor" width="650" height="273" style="background: rgba(255, 255, 255, 1);"></canvas>
+    </div>
+    <div class="col-4">
+        <canvas id="pieChart" class="chartjs-render-monitor" width="360" height="300" style="background: rgba(255, 255, 255, 1);"></canvas>
+    </div>
+</div>
+<div class="col-12 row" style="top: 54px; margin: 0; margin-bottom: 54px;">
+    <div class="col-8">
+        <canvas id="lineChart3" class="chartjs-render-monitor" width="650" height="273" style="background: rgba(255, 255, 255, 1);"></canvas>
+    </div>
+</div>
+<div class="col-12 row" style="top: 54px; margin: 0; margin-bottom: 54px;">
+    <div class="col-8">
+        <canvas id="lineChart4" class="chartjs-render-monitor" width="650" height="273" style="background: rgba(255, 255, 255, 1);"></canvas>
+    </div>
+</div>

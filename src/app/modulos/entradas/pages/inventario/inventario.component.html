@@ -1,0 +1,39 @@
+<hr>
+<div class="col-12 row">
+    <div class="col-8 row">
+       
+        <div class="form-group col-6">
+            <i class="fa fa-plus" aria-hidden="true" (click)="openModal()"   style="font-size: 250%; margin: 15px; cursor: pointer;" aria-disabled="idDisabled" [ngClass]="{'icono-disabled': idDisabled == true}"></i>
+        </div>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-bordered ">
+        <tr style="background: #c9e2de;;font-size: 12px">
+            <th class="text-center">Responsable</th>
+            <th class="text-center">Fecha Inicio</th>.
+            <th class="text-center">Descripcion</th>
+            <th class="text-center">Observacion</th>
+            <th class="text-center">Editar</th>
+            <th class="text-center">Anular</th>
+            <th class="text-center">Eliminar</th>
+
+        </tr>
+        <tr style="font-size: 12px" *ngFor="let cat of lsInventario;let indice=index">
+            <td class="text-center">{{cat.responsable}}</td>
+            <td class="text-center">{{cat.fecha_inicio}}</td>
+            <td class="text-center">{{cat.descripcion}}</td>
+            <td class="text-center">{{cat.observacion}}</td>
+
+            <td class="text-center">
+                <i class="fa fa-pencil-square-o" (click)="ActualizarUsuario(indice)" aria-hidden="true" style="cursor: pointer; font-size: 25px;"></i>
+            </td>
+            <td class="text-center">
+                <i   class="fa fa-minus-square-o"   aria-hidden="true" style="cursor: pointer; font-size: 25px;"></i>
+            </td>
+            <td class="text-center">
+              <i   class="fa fa-trash" (click)="EliminarUsuario(indice)" aria-hidden="true" style="cursor: pointer; font-size: 25px;"></i>
+          </td>
+        </tr>
+    </table>
+</div>

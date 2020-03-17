@@ -1,0 +1,114 @@
+<hr>
+
+<div class="col-12 row" style="margin:0; margin-bottom: 10px;">
+    <div class="col-4" style="margin-bottom: 10px">
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="SearchOptions" id="numCli" (click)="checkAction()" onclick="document.getElementById('inputGeneral').value='';" checked>
+            <label class="form-check-label" for="numCli" style="font-size: 12px">Buscar por Cliente</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="SearchOptions" id="nomDoc" (click)="checkAction()" onclick="document.getElementById('inputGeneral').value='';">
+            <label class="form-check-label" for="nomDoc" style="font-size: 12px">Buscar por Documento</label>
+        </div>
+        <input class="form-control form-control-sm min" id="inputGeneral" type="text" [(ngModel)]="filterPost" placeholder="{{mostrarCD}}" style="border-radius: 28px">
+    </div>
+</div>
+
+
+<div class="col-12 row" style="margin: 0; margin-bottom: 20px;">
+    <div class="col-1" style="margin-bottom: 0px">
+        <i class="mdi mdi-plus-circle" (click)="NuevoEgreso()" aria-hidden="true" style="font-size: 300%; margin: 15px; cursor: pointer;"></i>
+    </div>
+    <div class="form-group col-3">
+        <label style="font-size: 12px">Centro de Costo (Nivel 1) :</label>
+        <ng-select [items]="lsCcostoN1" bindLabel="nombreTipoCC" (change)="validarUltNivel1($event)" placeholder="seleccione"></ng-select>
+    </div>
+    <div class="form-group col-3" [hidden]="valNivel2">
+        <label style="font-size: 12px">Cliente (Nivel 2) :</label>
+        <ng-select id="s1" [items]="lsCcostoN2" bindLabel="nombre" bindValue="descripcion" [(ngModel)]="valor2" (change)="validarUltNivel2($event)" placeholder="seleccione"></ng-select>
+    </div>
+    <div class="form-group col-2" [hidden]="valNivel3">
+        <label style="font-size: 12px">Proyecto (Nivel 3) :</label>
+        <ng-select [items]="lsCcostoN3" bindLabel="nombre" bindValue="descripcion" [(ngModel)]="valor3" (change)="validarUltNivel3($event)" placeholder="seleccione"></ng-select>
+    </div>
+    <div class="form-group col-2" [hidden]="valNivel4">
+        <label style="font-size: 12px">Contrato (Nivel 4) :</label>
+        <ng-select [items]="lsCcostoN4" bindLabel="nombre" bindValue="descripcion" [(ngModel)]="valor4" (change)="validarUltNivel4($event)" placeholder="seleccione"></ng-select>
+    </div>
+</div>
+
+<div class="col-12">
+    <div class="table-responsive">
+        <table class="table table-bordered ">
+            <tr style="background: #c9e2de;;font-size: 12px">
+                <th class="text-center"></th>
+                <th class="text-center">Cuenta de egreso</th>
+                <th class="text-center">Tipo Cobro</th>
+                <th class="text-center">Cobro</th>
+                <th class="text-center">Fecha Programada pago</th>
+                <th class="text-center">Descripcion</th>
+                <th class="text-center">Cliente/Prestamista</th>
+                <th class="text-center">Moneda</th>
+                <th class="text-center">Total</th>
+                <th class="text-center">Editar</th>
+                <th class="text-center">Eliminar</th>
+            </tr>
+            <tbody *ngFor="let egreso of lsegresos| filterEgreso :filterPost :filterBoolean;let indice=index">
+                <tr style="font-size: 12px">
+                    <td class="text-center" style="padding: 5px 0px 0px 0px;">
+                        <a *ngIf="egreso.expanded" (click)="egreso.expanded = false">
+                            <i class="mdi mdi-arrow-up-drop-circle" style="font-size: 23px; cursor: pointer;"></i>
+                        </a>
+                        <a *ngIf="!egreso.expanded" (click)="egreso.expanded = true">
+                            <i class="mdi mdi-arrow-down-drop-circle" style="font-size: 23px; cursor: pointer;"></i>
+                        </a>
+                    </td>
+                    <td style="margin: 0px; top: 6px">{{egreso.cuenta_egreso}}</td>
+                    <td style="margin: 0px; top: 6px">{{egreso.tipo_cobro}}</td>
+                    <td style="margin: 0px; top: 6px">{{egreso.cobro}}</td>
+                    <td style="margin: 0px; top: 6px" class="text-center">{{egreso.fecha_estimada_cobro | date:'dd-MM-yyyy'}}</td>
+                    <td class="text-center"> {{egreso.descripcion}} </td>
+                    <td class="text-center"> {{egreso.documento.cliente.razon_social}} </td>
+                    <td class="text-center"> {{egreso.documento.cod_moneda}} </td>
+                    <td class="text-center">
+                        {{egreso.documento.cod_moneda=='USD'?egreso.documento.total_dolares:egreso.documento.total_soles | number}} </td>
+                    <td class="text-center">
+                        <i class="fa fa-pencil-square-o" (click)="editarEgreso(egreso)" aria-hidden="true" style="cursor: pointer; font-size: 25px;"></i>
+                    </td>
+                    <td class="text-center">
+                        <i class="fa fa-trash" (click)="eliminarEgreso(egreso)" aria-hidden="true" style="cursor: pointer; font-size: 25px;"></i>
+                    </td>
+                </tr>
+                <tr *ngIf="egreso.expanded" style="font-size: 12px">
+                    <td colspan="12">
+                        <table class="table table-bordered" style="width: 900px; margin: 6px auto">
+                            <tr style="background: #c9e2de;">
+                                <th class="text-center">Documento</th>
+                                <th class="text-center">Base imponible </th>
+                                <th class="text-center">Total igv</th>
+                                <th class="text-center">Total soles</th>
+                                <th class="text-center">Total dolares</th>
+                                <th class="text-center">Tipo cambio</th>
+                                <th class="text-center">Total pagado</th>
+                                <th class="text-center">Editar</th>
+
+                            </tr>
+                            <tr>
+                                <td class="text-center">{{egreso.documento.serie_comprobante}}-{{egreso.documento.nro_comprobante}} </td>
+                                <td class="text-center">{{egreso.documento.subtotal_soles}} </td>
+                                <td class="text-center">{{egreso.documento.total_igv}} </td>
+                                <td class="text-center">{{egreso.documento.total_soles | number}} </td>
+                                <td class="text-center">{{egreso.documento.total_dolares | number}} </td>
+                                <td class="text-center">{{egreso.documento.tipo_cambio}} </td>
+                                <td class="text-center">{{egreso.documento.total_pagado | number}} </td>
+                                <td class="text-center">
+                                    <i class="fa fa-pencil-square-o" (click)="editarDocumentoEgreso(egreso.id_empresa,egreso.id_egreso,egreso.documento)" aria-hidden="true" style="cursor: pointer; font-size: 25px;"></i>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

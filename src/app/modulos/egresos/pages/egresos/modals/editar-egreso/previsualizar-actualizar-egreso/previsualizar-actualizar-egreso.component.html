@@ -1,0 +1,46 @@
+<div class="modal-header" style="justify-content: center;border-bottom: 1px solid #ffffff !important;">
+    <h5 class="modal-title" style="font-size: 15px;font-weight: bold;">PREVISUALIZACION DEL NUEVO EGRESO</h5>
+</div>
+<div class="modal-body">
+    <div class="col-12" style="padding: 15px; border: 1px solid #c3c3c3; border-radius: 10px;">
+        <div class="col-12 row" style="margin: 0px; margin-bottom: 15px; padding: 0px;">
+            <div class="form-group col-3" style="display: grid;">
+                <label style="font-size: 12px">Cuenta Egreso :</label>
+                <label style="font-size: 12px">{{egresodat.cuenta_egreso}}</label>
+            </div>
+            <div class="form-group col-3" style="display: grid;">
+                <label style="font-size: 12px">Tipo Cobro :</label>
+                <label style="font-size: 12px">{{egresodat.tipo_cobro}}</label>
+            </div>
+            <div class="form-group col-3" style="display: grid;">
+                <label style="font-size: 12px">Cobrado :</label>
+                <label style="font-size: 12px">{{egresodat.cobro}}</label>
+            </div>
+            <div class="form-group col-3">
+                <label style="font-size: 12px">Cuenta :</label>
+                <label style="font-size: 12px">{{egresodat.cuenta_numero}}</label>
+            </div>
+        </div>
+        <div class="col-12 row" style="margin: 0px; padding: 0px;">
+            <div class="form-group col-5" style="display: grid;">
+                <label style="font-size: 12px">Fecha estimada :</label>
+                <label style="font-size: 12px">{{egresodat.fecha_estimada_cobro | date: 'dd-MM-yyyy'}}</label>
+            </div>
+            <!-- <div class="form-group col-3" style="display: grid;">
+                <label style="font-size: 12px">Fecha real cobro :</label>
+                <label style="font-size: 12px">{{egresodat.fecha_real_cobro | date: 'dd-MM-yyyy'}}</label>
+            </div> -->
+            <div class="form-group col-4" style="display: grid;">
+                <label style="font-size: 12px">Descripcion :</label>
+                <label style="font-size: 12px">{{egresodat.descripcion}}</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer" style="padding: 7px 15px;justify-content: center;">
+        <!-- <i (click)="close()" class="mdi mdi-close-circle" style="cursor: pointer; font-size: 35px;color: #dc3545;margin-right: 25px;"></i>
+        <i (click)="confirmar()" class="mdi mdi-content-save" style="cursor: pointer; font-size: 35px;color: #17a2b8;margin-left: 25px;"></i> -->
+        <button class="btn btn-warning btn-sm min" data-dismiss="modal" (click)="close()">Cancelar</button>
+        <button class="btn btn-primary btn-sm min" (click)="confirmar()">Confirmar</button>
+
+    </div>

@@ -1,0 +1,55 @@
+<hr>
+<div class="col-12 row">
+    <!-- <div class="col-4" style="margin-bottom: 10px">
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="SearchOptions" id="descripcion" checked>
+            <label class="form-check-label" for="descripcion" style="font-size: 12px">Buscar por Descripcion</label>
+        </div>
+        <input type="text" id="AlInputDesc" placeholder="Ingrese Descripcion" class="form-control form-control-sm min" style="border-radius: 30px" (ngModelChange)="FilterClienteDescripcion($event)">
+    </div> -->
+    <div class="col-12 row" style="margin-bottom: 20px;">
+        <div class="form-group col-4" style="padding-top: 5px;">
+            <!-- <label style="font-size: 12px">Seleccione una empresa :</label> -->
+            <ng-select [items]="lsEmpresas" bindLabel="razon_social_empresa" bindValue="id_empresa" placeholder="seleccione" [(ngModel)]="cliente.id_empresa" (ngModelChange)="ListarClientexEmpresa($event)" [disabled]="true"></ng-select>
+        </div>
+        <div class="form-group col-2">
+            <i class="mdi mdi-plus-circle" aria-hidden="true" (click)="nuevoCliente()" style="font-size: 300%; margin: 15px; cursor: pointer;" aria-disabled="idDisabled" [ngClass]="{'icono-disabled': idDisabled == true}"></i>
+        </div>
+        <!-- <div class="form-group col-4">
+            <label style="font-size: 18px">Cargar clientes :</label>
+            <i class="mdi mdi-file-excel" (click)="openModalCargarExcel()" aria-hidden="true" style="cursor: pointer; font-size: 35px;"></i>
+        </div> -->
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-bordered ">
+        <tr style="background: #c9e2de;;font-size: 12px">
+            <th class="text-center">Tipo Doc.</th>
+            <th class="text-center">Documento </th>
+            <th class="text-center">Razon Social</th>
+            <th class="text-center">Razon Comercial</th>
+            <th class="text-center">Direccion fiscal</th>
+            <th class="text-center">Email</th>
+            <th class="text-center">Movil</th>
+            <th class="text-center">Fijo</th>
+            <th class="text-center">Editar</th>
+            <th class="text-center">Eliminar</th>
+        </tr>
+        <tr style="font-size: 12px" *ngFor="let cat of lsCliente;let indice=index">
+            <td class="text-center">{{cat.tipodocumento.descripcion}}</td>
+            <td class="text-center">{{cat.nro_doc}}</td>
+            <td class="text-center">{{cat.razon_social}}</td>
+            <td class="text-center">{{cat.razon_comercial}}</td>
+            <td class="text-center">{{cat.direccion_fiscal}}</td>
+            <td class="text-center">{{cat.email}}</td>
+            <td class="text-center">{{cat.movil}}</td>
+            <td class="text-center">{{cat.fijo}}</td>
+            <td class="text-center">
+                <i class="mdi mdi-pencil" (click)="ActualizarCliente(indice)" aria-hidden="true" style="cursor: pointer; font-size: 25px;"></i>
+            </td>
+            <td class="text-center">
+                <i class="mdi mdi-delete" (click)="EliminarCliente(indice)" aria-hidden="true" style="cursor: pointer; font-size: 25px;"></i>
+            </td>
+        </tr>
+    </table>
+</div>

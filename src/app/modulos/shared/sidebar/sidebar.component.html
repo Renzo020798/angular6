@@ -1,0 +1,57 @@
+<!-- ============================================================== -->
+<!-- Left Sidebar - style you can find in sidebar.scss  -->
+<!-- ============================================================== -->
+<aside class="left-sidebar">
+    <!-- Sidebar scroll-->
+    <div class="scroll-sidebar">
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav">
+            <ul id="sidebarnav">
+                <li class="user-profile" style="height: 110px;">
+                    <!-- <a class="has-arrow waves-effect waves-dark" (click)="collapsePerfil()" href="#" [attr.aria-expanded]="openPerfil"> -->
+                    <a class="waves-effect waves-dark">
+                        <!-- <img [src]="usuario.img | imagen:'usuario':usuario._id" alt="user" /> -->
+                        <span class="hide-menu text-active">Usuario : {{ usuario.nombre | truncate:[15, '...']}} </span>
+                    </a>
+                    <a class="waves-effect waves-dark">
+                        <!-- <img [src]="usuario.img | imagen:'usuario':usuario._id" alt="user" /> -->
+                        <span class="hide-menu text-active">Perfil : {{ usuario.nombre_perfil  | truncate:[20, '...']}} </span>
+                    </a>
+                    <a class="waves-effect waves-dark">
+                        <!-- <img [src]="usuario.img | imagen:'usuario':usuario._id" alt="user" /> -->
+                        <span class="hide-menu  text-active" style="line-height: 1.2;">Empresa : {{ usuario.nombre_empresa  | truncate:[20, '...']}} </span>
+                    </a>
+                    <!-- <ul aria-expanded="false" class="collapse" [class.collapse]="openPerfil">
+                        <li><a (click)="_usuarioService.logout()" class="pointer">Salir</a></li>
+                    </ul> -->
+                </li>
+                <li class="nav-devider" style="margin: 0px; margin-bottom: 15px;"></li>
+                <li *ngFor="let menu of _sidebar.menu" [ngClass]="menu.open?'active':''">
+                    <a class="has-arrow waves-effect waves-light " (click)="toggleCollapse(menu.idmodulo)" [attr.aria-expanded]="menu.open">
+                        <i [class]="menu.icono"></i>
+                        <span class="hide-menu"> {{ menu.descripcion }}
+                        </span>
+                    </a>
+                    <ul [class.collapse]="!menu.open" aria-expanded="false" class="collapse">
+
+                        <li *ngFor="let submenu of menu.lsPaginas">
+                            <a routerLinkActive="active" [routerLink]="[ submenu.url ]"> {{ submenu.descripcion }} </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-devider"></li>
+                <li class="salirrr">
+                    <a class="pointer salirr" (click)="_usuarioService.logout()">
+                        <i class="mdi mdi-exit-to-app"></i>
+                        <span class="hide-menu"> Salir </span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+    </div>
+    <!-- End Sidebar scroll-->
+</aside>
+<!-- ============================================================== -->
+<!-- End Left Sidebar - style you can find in sidebar.scss  -->
+<!-- ============================================================== -->

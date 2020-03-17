@@ -1,0 +1,79 @@
+<hr>
+<div class="col-12 row" style="margin:0; margin-bottom: 10px;">
+    <div class="col-10" style="margin-bottom: 10px">
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="SearchOptions" id="numCodigo" (click)="checkAction()" onclick="document.getElementById('inputGeneral').value='';" checked>
+            <label class="form-check-label" for="numCli" style="font-size: 12px">Buscar por Codigo</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="SearchOptions" id="nomDescripcion" (click)="checkAction()" onclick="document.getElementById('inputGeneral').value='';">
+            <label class="form-check-label" for="nomDoc" style="font-size: 12px">Buscar por Descripcion</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="SearchOptions" id="nomSerie" (click)="checkAction()" onclick="document.getElementById('inputGeneral').value='';">
+          <label class="form-check-label" for="nomDoc" style="font-size: 12px">Buscar por Serie</label>
+      </div>
+    </div>
+</div>
+<div class="col-12 row" style="margin:0; margin-bottom: 10px;">
+  <div class="col-5" style="margin-bottom: 10px">
+  <input class="form-control form-control-sm min" id="inputGeneral" type="text" [(ngModel)]="filterPost" placeholder="{{mostrarCD}}" style="border-radius: 28px">
+  </div>
+</div>
+
+<div class="col-12 row" style="margin: 0; margin-bottom: 20px;">
+       <div class="form-group col-3">
+        <label style="font-size: 12px">Sede :</label>
+        <ng-select [items]="lsSede" bindLabel="nombre_sede"  placeholder="seleccione"></ng-select>
+    </div>
+    <div class="form-group col-3" [hidden]="valNivel2">
+      <label style="font-size: 12px">Centro Costo :</label>
+      <ng-select [items]="lsCentroCosto" bindLabel="centro_costo"  placeholder="seleccione"></ng-select>
+   </div>
+    <div class="form-group col-2" [hidden]="valNivel3">
+      <label style="font-size: 12px">Ubicacion :</label>
+      <ng-select [items]="lsUbicacion" bindLabel="ubicac_fisica"  placeholder="seleccione"></ng-select>
+    </div> 
+    <div class="form-group col-2" [hidden]="valNivel3">
+       <i class="fa fa-print" aria-hidden="true"   style="font-size: 250%; margin: 15px; cursor: pointer;" aria-disabled="idDisabled" [ngClass]="{'icono-disabled': idDisabled == true}"></i>
+    </div> 
+</div>
+<div class="col-12">
+    <div class="table-responsive">
+        <table class="table table-bordered" style="width: 99.9%">
+            <tr style="background: #c9e2de;;font-size: 12px">
+                   <th style="text-align: center;">Check</th>
+                 <th class="text-center">Antiguo</th>
+                <th class="text-center">Codigo SBN</th>
+                <th class="text-center">Descripcion</th>
+                <th class="text-center">DesMarca</th>
+                <th class="text-center">Modelo</th>
+                <th class="text-center">DesTipo</th>
+                <th class="text-center">Serie</th>
+                <th class="text-center">Largo</th>
+                <th class="text-center">Alto</th>
+             </tr>
+
+            <tbody *ngFor="let bien of lsbienes ">
+                <tr style="font-size: 12px">
+                  <td style="text-align: center;">
+                    <div class="form-check">
+                         <label class="form-check-label" for="{{bien.check}}"></label>
+                    </div>
+                 </td>
+                    <td style="margin: 0px; top: 6px"> </td>
+                    <td style="margin: 0px; top: 6px"> </td>
+                    <td style="margin: 0px; top: 6px"> </td>
+                    <td style="margin: 0px; top: 6px" class="text-center"></td>
+                    <td class="text-center">   </td>
+                    <td class="text-center">   </td>
+                    <td class="text-center">   </td>
+                    <td class="text-center">
+                        </td>
+             
+                </tr>
+            
+            </tbody>
+        </table>
+    </div>
+</div>

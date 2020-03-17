@@ -1,0 +1,53 @@
+<hr>
+<div class="col-12 row">
+    <div class="col-8 row">
+        <div *ngIf="perfil_admin.perfil_admin" class="form-group col-6">
+            <i class="mdi mdi-plus-circle" aria-hidden="true" (click)="nuevoEmpresa()" style="font-size: 300%; margin: 15px; cursor: pointer;"></i>
+        </div>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-bordered ">
+        <tr style="background: #c9e2de;;font-size: 12px">
+            <th class="text-center" style="color:#467A72">Nro. Doc.</th>
+            <th class="text-center" style="color:#467A72">Tipo Doc.</th>
+            <th class="text-center" style="color:#467A72">Nombre Comercial</th>
+            <th class="text-center" style="color:#467A72">Nombre</th>
+            <th class="text-center" style="color:#467A72">Direccion</th>
+            <th class="text-center" [hidden]="!perfil_admin.perfil_admin" style="color:#467A72">Estado</th>
+            <th class="text-center" style="color:#467A72">Tipo de empresa</th>
+            <th class="text-center" [hidden]="!perfil_admin.perfil_admin" style="color:#467A72">Saldo Inicial Caja</th>
+            <th class="text-center" [hidden]="!perfil_admin.perfil_admin" style="color:#467A72">Habilitar/Deshabilitar</th>
+            <th class="text-center" style="color:#467A72">Editar</th>
+            <th class="text-center" [hidden]="!perfil_admin.perfil_admin" style="color:#467A72">Eliminar</th>
+        </tr>
+        <tr style="font-size: 12px; color:#467A72" *ngFor="let cat of lsEmpresasxUsu;let indice=index">
+            <td class="text-center">{{cat.nro_documento_empresa}}</td>
+            <td class="text-center">{{cat.tipo_doc_empresa}}</td>
+            <td class="text-center">{{cat.nombre_comercial_empresa}}</td>
+            <td class="text-center">{{cat.razon_social_empresa}}</td>
+            <td class="text-center">{{cat.direccion_empresa}}</td>
+            <td class="text-center" style="color: #ffffff;" [ngClass]="cat.habilitado == true ? 'estadoColorAzul' : 'estadoColorRojo'" [hidden]="!perfil_admin.perfil_admin">{{cat.estadoCompany}}</td>
+            <td class="text-center" *ngIf="cat.tipo_empresa=='S';else prod">Servicios</td>
+            <ng-template #prod>
+                <td class="text-center">Producción</td>
+            </ng-template>
+
+            <td class="text-center" [hidden]="!perfil_admin.perfil_admin">
+                <i class="fa fa-plus-square-o" (click)="adicionarCentroCosto(cat)" aria-hidden="true" style="cursor: pointer; font-size: 25px;"></i>
+            </td>
+            <td *ngIf="perfil_admin.perfil_admin" class="text-center" [hidden]="cat.habilitado">
+                <i *ngIf="cat.id_empresa==1?false:true" class="fa fa-check" (click)="habilitarEmpresa(cat)" aria-hidden="true" style="cursor: pointer; font-size: 25px;"></i>
+            </td>
+            <td *ngIf="perfil_admin.perfil_admin" class="text-center" [hidden]="!cat.habilitado">
+                <i *ngIf="cat.id_empresa==1?false:true" class="fa fa-window-close" (click)="deshabilitarEmpresa(cat)" aria-hidden="true" style="cursor: pointer; font-size: 25px;"></i>
+            </td>
+            <td class="text-center">
+                <i class="mdi mdi-pencil" (click)="ActualizarEmpresa(cat.id_empresa)" aria-hidden="true" style="cursor: pointer; font-size: 25px;"></i>
+            </td>
+            <td class="text-center">
+                <i *ngIf="cat.id_empresa==1?false:true" class="mdi mdi-delete" (click)="EliminarEmpresa(cat)" aria-hidden="true" style="cursor: pointer; font-size: 25px;"></i>
+            </td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,50 @@
+<div class="modal-header" style="justify-content: center;border-bottom: 1px solid #ffffff !important;">
+    <h5 class="modal-title" style="font-size: 15px;font-weight: bold;">ACTUALIZAR EGRESO</h5>
+</div>
+<div class="modal-body">
+    <div class="col-12" style="padding: 15px; border: 1px solid #c3c3c3; border-radius: 10px;">
+        <div class="col-12 row" style="margin: 0px; margin-bottom: 15px; padding: 0px;">
+            <div class="form-group col-3">
+                <label style="font-size: 12px">Cuenta egreso :</label>
+                <ng-select [items]="lsEgresos" bindLabel="desc_tipo_operac" bindValue="desc_tipo_operac" placeholder="seleccione" [(ngModel)]="egreso.cuenta_egreso"></ng-select>
+            </div>
+            <div class="form-group col-3">
+                <label style="font-size: 12px">Tipo Cobro :</label>
+                <ng-select [items]="lstipocobro" bindLabel="descripcion" bindValue="descripcion" placeholder="seleccione" [(ngModel)]="egreso.tipo_cobro"></ng-select>
+            </div>
+            <div class="form-group col-3">
+                <label style="font-size: 12px">Pagado :</label>
+                <ng-select [items]="lscobro" bindLabel="descripcion" bindValue="descripcion" placeholder="seleccione" [(ngModel)]="egreso.cobro" [disabled]="true"></ng-select>
+            </div>
+            <div class="form-group col-3">
+                <label style="font-size: 12px">Fecha Estimada :</label><br>
+                <i class="fa fa-calendar-o" aria-hidden="true" (click)="FechaEstimadaEgreso()" style="position: absolute;top:16px ;font-size: 250%;left: 15px;cursor: pointer;"></i>
+                <label style="font-size: 12px;position: absolute;top:27px ;font-size: 150%;left:60px;">{{fecha.fecha_estimada_cobro | date:'dd-MM-yyyy'}}</label>
+            </div>
+
+        </div>
+        <div class="col-12 row" style="margin: 0px; padding: 0px;">
+            <div class="form-group col-5" [hidden]="valiCuentaEgr">
+                <label style="font-size: 12px">Cuenta :</label>
+                <ng-select [items]="lscuentaegreso" bindLabel="descripcion_cuenta" placeholder="seleccione" [(ngModel)]="egreso.cuenta_numero" (ngModelChange)="seteCuenta($event)"></ng-select>
+            </div>
+            <div class="form-group col-4">
+                <label style="font-size: 12px">Descripcion :</label>
+                <input class="form-control form-control-sm" [(ngModel)]="egreso.descripcion" type="text">
+            </div>
+            <!-- <div class="form-group col-3">
+                <label style="font-size: 12px">Fecha real cobro :</label>
+                <ejs-datepicker [ngModel]="egreso.fecha_real_cobro | date:'dd-MM-yyyy'" [(ngModel)]="egreso.fecha_real_cobro" format='dd-MM-yyyy' type="text" id='datepicker' placeholder='Elige una fecha'> </ejs-datepicker>
+            </div> -->
+
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer" style="padding: 7px 15px;justify-content: center;">
+    <!-- <i (click)="close()" class="mdi mdi-close-circle" style="cursor: pointer; font-size: 35px;color: #dc3545;margin-right: 25px;"></i>
+    <i (click)="modalPrevisualizarEgreso()" class="mdi mdi-content-save" style="cursor: pointer; font-size: 35px;color: #17a2b8;margin-left: 25px;"></i> -->
+    <button class="btn btn-warning btn-sm min" data-dismiss="modal" (click)="close()">Cancelar</button>
+    <button class="btn btn-primary btn-sm min" (click)="modalPrevisualizarEgreso()" style="cursor: pointer">Previsualizar</button>
+
+</div>

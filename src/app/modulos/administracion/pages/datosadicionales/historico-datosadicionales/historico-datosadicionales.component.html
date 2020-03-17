@@ -1,0 +1,110 @@
+<div class="modal-header" style="justify-content: center;">
+    <h5 class="modal-title" style="font-size: 17px; text-transform: uppercase; font-weight: bold;">Datos Adicionales</h5>
+</div>
+<!-- TABLA HISTORICO DE CONSUMOS -->
+<div class="modal-body" [hidden]="cuenta.cod_tipo_cuenta == 'CONSUMO'?false:true">
+    <div class="col-12" style="margin: 20px 0px; padding-left: 26%;">
+        <div class="col-12" style="width: 30%;">
+            <label style="font-size: 12px">Año : </label>
+            <ng-select [items]="lsAno" bindLabel="desc_periodo_año" placeholder="Seleccione un año" [(ngModel)]="datosAdicionales.ano" (ngModelChange)="listarDatosAdicionalesxAnioyIdCuenta($event)"></ng-select>
+        </div>
+    </div>
+    <div class="col-12" style="display: flex; margin-top: 20px;">
+        <div class="col-3" style="padding: 0px;">
+            <table class="table">
+                <tr style="display: grid;height: 208px;">
+                    <th style="text-transform: uppercase; height: 69px;">{{cuenta.descripcion_cuenta}}</th>
+                    <th>Inventario Inicial de Materia Prima del Mes</th>
+                    <th>Compras del Mes</th>
+                    <th>Inventario Final de Materia Prima del mes</th>
+                    <th>Total Materia Prima consumida al mes</th>
+                </tr>
+            </table>
+        </div>
+        <div class="col-9" style="padding: 0px;">
+            <div class="table-responsive">
+                <table class="table table-bordered" style="margin-bottom: 0px;">
+                    <tr style="background: #259055; color:#fff">
+                        <th colspan="12" class="text-center font-bold">{{ano}}</th>
+                    </tr>
+                    <tr style="background: #30b16a; color:#fff">
+                        <th class="text-center font-bold">Enero</th>
+                        <th class="text-center font-bold">Febrero</th>
+                        <th class="text-center font-bold">Marzo</th>
+                        <th class="text-center font-bold">Abril</th>
+                        <th class="text-center font-bold">Mayo</th>
+                        <th class="text-center font-bold">Junio</th>
+                        <th class="text-center font-bold">Julio</th>
+                        <th class="text-center font-bold">Agosto</th>
+                        <th class="text-center font-bold">Setiembre</th>
+                        <th class="text-center font-bold">Octubre</th>
+                        <th class="text-center font-bold">Noviembre</th>
+                        <th class="text-center font-bold">Diciembre</th>
+                    </tr>
+                    <tr>
+                        <td *ngFor="let dat of lsDatosAdicionales">{{dat.inventario_inicio}}</td>
+                    </tr>
+                    <tr>
+                        <td *ngFor="let dat of lsDatosAdicionales">{{dat.compra_mes}}</td>
+                    </tr>
+                    <tr>
+                        <td *ngFor="let dat of lsDatosAdicionales">{{dat.inventario_fin}}</td>
+                    </tr>
+                    <tr style="background: #d9f5d8;">
+                        <td *ngFor="let dat of lsDatosAdicionales">
+                            {{dat.inventario_inicio + dat.compra_mes - dat.inventario_fin}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- TABLA HISTORICO DE DEPRECIACION -->
+<div class="modal-body" [hidden]="cuenta.cod_tipo_cuenta != 'CONSUMO'?false:true">
+    <div class="col-12" style="margin: 20px 0px; padding-left: 26%;">
+        <div class="col-12" style="width: 30%;">
+            <label style="font-size: 12px">Año :</label>
+            <ng-select [items]="lsAno" bindLabel="desc_periodo_año" placeholder="Seleccione un año" [(ngModel)]="datosAdicionales.ano" (ngModelChange)="listarDepreciacionxAnioyIdCuenta($event)"></ng-select>
+        </div>
+    </div>
+    <div class="col-12" style="display: flex; margin-top: 20px;">
+        <div class="col-3" style="padding: 0px;">
+            <table class="table">
+                <tr style="display: grid;height: 105px;">
+                    <th style="text-transform: uppercase; text-align: center; line-height: 1.4; padding-top: 29px;">{{cuenta.descripcion_cuenta}}</th>
+                </tr>
+            </table>
+        </div>
+        <div class="col-9" style="padding: 0px;">
+            <div class="table-responsive">
+                <table class="table table-bordered" style="margin-bottom: 0px;">
+                    <tr style="background: #259055; color:#fff">
+                        <th colspan="12" class="text-center font-bold">{{ano}}</th>
+                    </tr>
+                    <tr style="background: #30b16a; color:#fff">
+                        <th class="text-center font-bold">Enero</th>
+                        <th class="text-center font-bold">Febrero</th>
+                        <th class="text-center font-bold">Marzo</th>
+                        <th class="text-center font-bold">Abril</th>
+                        <th class="text-center font-bold">Mayo</th>
+                        <th class="text-center font-bold">Junio</th>
+                        <th class="text-center font-bold">Julio</th>
+                        <th class="text-center font-bold">Agosto</th>
+                        <th class="text-center font-bold">Setiembre</th>
+                        <th class="text-center font-bold">Octubre</th>
+                        <th class="text-center font-bold">Noviembre</th>
+                        <th class="text-center font-bold">Diciembre</th>
+                    </tr>
+                    <tr>
+                        <td *ngFor="let dat of lsDatosAdicionales">{{dat.depreciacion}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer" style="padding: 7px 15px;justify-content: center;border: none;">
+    <!-- <i class="mdi mdi-check-all" style="cursor: pointer; font-size: 35px;color: #17a2b8;" (click)="Ok()"></i> -->
+    <button class="btn btn-primary btn-sm min" (click)="Ok()">OK</button>
+</div>

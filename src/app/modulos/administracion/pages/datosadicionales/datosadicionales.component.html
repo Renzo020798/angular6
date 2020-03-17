@@ -1,0 +1,87 @@
+<hr>
+<div class="col-12" style="margin-top: 40px;">
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" [hidden]="!produccion" id="nav-niv2-tab" data-toggle="tab" href="#nav-niv2" role="tab" aria-controls="nav-niv2" aria-selected="true">Consumos</a>
+            <a class="nav-item nav-link" [ngClass]="produccion==false?'active':''" id="nav-niv3-tab" data-toggle="tab" href="#nav-niv3" role="tab" aria-controls="nav-niv3" aria-selected="false" (click)="listarCuentaDepreciacion()">Depreciacion</a>
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show" [ngClass]="produccion==true?'active':''" id="nav-niv2" role="tabpanel" aria-labelledby="nav-niv2-tab">
+            <div class="col-12">
+                <div class="col-12 row" style="margin: 0;">
+                    <div class="form-group col-3" style="margin-bottom: 20px; margin-top: 15px;">
+                        <label style="font-size: 12px">Centro de Costo (Nivel 1) :</label>
+                        <ng-select [items]="lsCcostoN1" bindLabel="nombre" (change)="validarUltNivel1($event)" placeholder="seleccione"></ng-select>
+                    </div>
+                    <div class="form-group col-3" [hidden]="valNivel2" style="margin-bottom: 20px; margin-top: 15px;">
+                        <label style="font-size: 12px">Cliente (Nivel 2) :</label>
+                        <ng-select id="s1" [items]="lsCcostoN2" bindLabel="nombre" bindValue="descripcion" [(ngModel)]="valor2" (change)="validarUltNivel2($event)" placeholder="seleccione"></ng-select>
+                    </div>
+                    <div class="form-group col-3" [hidden]="valNivel3" style="margin-bottom: 20px; margin-top: 15px;">
+                        <label style="font-size: 12px">Proyecto (Nivel 3) :</label>
+                        <ng-select [items]="lsCcostoN3" bindLabel="nombre" bindValue="descripcion" [(ngModel)]="valor3" (change)="validarUltNivel3($event)" placeholder="seleccione"></ng-select>
+                    </div>
+                    <div class="form-group col-3" [hidden]="valNivel4" style="margin-bottom: 20px; margin-top: 15px;">
+                        <label style="font-size: 12px">Contrato (Nivel 4) :</label>
+                        <ng-select [items]="lsCcostoN4" bindLabel="nombre" bindValue="descripcion" [(ngModel)]="valor4" (change)="validarUltNivel4($event)" placeholder="seleccione"></ng-select>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered ">
+                            <tr style="background: #c9e2de;;font-size: 12px">
+                                <th class="text-center">Cuenta consumo</th>
+                                <th class="text-center" [hidden]="!perfil_admin.perfil_admin">Inventario Inicial</th>
+                                <th class="text-center">Consumos</th>
+                                <th class="text-center">Historico</th>
+                            </tr>
+                            <tr style="font-size: 12px" *ngFor="let cat of lsCuentaConsumo;let indice=index">
+                                <td class="text-center">{{cat.descripcion_cuenta}} </td>
+                                <td class="text-center" [hidden]="!perfil_admin.perfil_admin">
+                                    <i class="fa fa-plus-square-o" (click)="agregarDatoAdicional(indice)" aria-hidden="true" style="cursor: pointer; font-size: 25px;"></i>
+                                </td>
+                                <td class="text-center">
+                                    <i class="fa fa-pencil-square-o" (click)="agregarDatoAdicionalConsumo(indice)" aria-hidden="true" style="cursor: pointer; font-size: 25px;"></i>
+                                </td>
+                                <td class="text-center">
+                                    <i class="fa fa-table" (click)="historicoDatoAdicionalConsumo(indice)" aria-hidden="true" style="cursor: pointer; font-size: 25px;"></i>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade show" [ngClass]="produccion==false?'active':''" id="nav-niv3" role="tabpane1" aria-labelledby="nav-niv3-tab">
+            <div class="col-12">
+                <div class="col-12" style="margin: 20px 0px; width: 30%;">
+                    <!-- <label style="font-size: 12px">Depreciacion :</label> -->
+                    <!-- <ng-select [items]="lsCentroCosto" bindLabel="nombre" placeholder="seleccione" [(ngModel)]="centro_costo" (ngModelChange)="listaCuentasComsumo($event)"></ng-select> -->
+                </div>
+                <div class="col-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered ">
+                            <tr style="background: #c9e2de;;font-size: 12px">
+                                <th class="text-center">Cuenta depreciacion</th>
+                                <th class="text-center">Depreciacion</th>
+                                <th class="text-center">Historico</th>
+                            </tr>
+                            <tr style="font-size: 12px" *ngFor="let cat of lsCuentaDepreciacion;let indice=index">
+                                <td class="text-center">{{cat.descripcion_cuenta}} </td>
+                                <td class="text-center">
+                                    <i class="fa fa-pencil-square-o" (click)="agregarDatoAdicionalDepreciacion(indice)" aria-hidden="true" style="cursor: pointer; font-size: 25px;"></i>
+                                </td>
+                                <td class="text-center">
+                                    <i class="fa fa-table" (click)="historicoDatoAdicionalDepreciacion(indice)" aria-hidden="true" style="cursor: pointer; font-size: 25px;"></i>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

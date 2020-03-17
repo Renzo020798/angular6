@@ -1,0 +1,31 @@
+<div class="modal-header" style="justify-content: center;">
+    <h5 class="modal-title" style="font-size:15px; font-weight: bold;">Permisos</h5>
+</div>
+<div class="modal-body">
+    <div class="col-12" style="margin: 0;">
+        <div class="table-responsive">
+            <table class="table table-bordered ">
+                <tr style="background: #c9e2de;;font-size: 12px">
+                    <th>Pagina</th>
+                    <th>Modulo</th>
+                    <th style="text-align: center;">estado</th>
+                    <th style="text-align: center;">Check</th>
+                </tr>
+                <tr style="font-size: 12px" *ngFor="let cat of lsPaginaPerfil;let indice=index">
+                    <td>{{cat.descripcion}}</td>
+                    <td>{{cat.descripcionmodulo}}</td>
+                    <td style="text-align: center;">{{cat.estado}}</td>
+                    <td style="text-align: center;">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="{{cat.idpagina}}" [checked]="cat.checkPaginas" name="#cat.idpagina" (change)="capturarIdPagina(indice)">
+                            <label class="form-check-label" for="{{cat.idpagina}}"></label>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary btn-sm min" style="cursor: pointer" (click)="AgregarPermisos()">Guardar</button>
+</div>

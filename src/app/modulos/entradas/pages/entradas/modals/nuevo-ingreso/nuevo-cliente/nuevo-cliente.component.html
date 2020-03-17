@@ -1,0 +1,64 @@
+<form #nuevocliente="ngForm" novalidate>
+    <div class="modal-header" style="justify-content: center;">
+        <h5 class="modal-title" style="font-size:15px; font-weight: bold; text-transform: uppercase;">Nuevo Cliente</h5>
+    </div>
+    <div class="modal-body">
+        <div class="col-12" style="margin: 0;">
+            <div class="col-12 mt-3 mb-3" style="border:2px solid #d6d6d6; border-radius: 15px; padding: 10px;flex: 0 0 48%; margin: 0 7px 0 0;">
+                <div class="form-row col-12 mt-3">
+                    <div class="col-6 mb-3">
+                        <label for="tipdoc" style="font-weight: bold;">Tipo Documento :</label>
+                        <ng-select id="tipdoc" [items]="lstTipoDocuIden" bindLabel="descripcion" placeholder="seleccione Tipo. Doc" [(ngModel)]="cliente.tipo_doc" name="#cliente.tipo_doc" (ngModelChange)="validarlongmax($event)" required></ng-select>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label for="rucdni" style="font-weight: bold;">RUC/ DNI :</label>
+                        <input id="rucdni" type="text" class="form-control form-control-sm min" [(ngModel)]="cliente.nro_doc" name="#cliente.nro_doc" (ngModelChange)="validarNroDoc(cliente.nro_doc)" autocomplete="off" minlength="{{longmax}}" maxlength="{{longmax}}" required>
+                    </div>
+                </div>
+                <div class="form-row col-12">
+                    <div class="col-12 mb-3">
+                        <label for="razso" style="font-weight: bold;">Razon Social :</label>
+                        <input id="razso" type="text" class="form-control form-control-sm min" [(ngModel)]="cliente.razon_social" name="#cliente.razon_social" required>
+                    </div>
+                </div>
+                <div class="form-row col-12">
+                    <div class="col-6 mb-3">
+                        <label for="email" style="font-weight: bold;">Razon Comercial (opc.) :</label>
+                        <input id="email" class="form-control form-control-sm" type="text" id="cod" [(ngModel)]="cliente.razon_comercial" name="#cliente.razon_comercial">
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label for="ctadet" style="font-weight: bold;">Cuenta Detracción :</label>
+                        <input id="ctadet" class="form-control form-control-sm" type="text" id="nom" [(ngModel)]="cliente.cuenta_detraccion" name="#cliente.cuenta_detraccion">
+                    </div>
+                </div>
+                <div class="form-row col-12">
+                    <div class="col-12 mb-3">
+                        <label for="dirf" style="font-weight: bold;">Dirección Fiscal :</label>
+                        <input id="dirf" class="form-control form-control-sm" type="text" id="cod" [(ngModel)]="cliente.direccion_fiscal" name="#cliente.direccion_fiscal">
+                    </div>
+                </div>
+                <div class="form-row col-12">
+                    <div class="col-12 mb-3">
+                        <label for="email" style="font-weight: bold;">Email :</label>
+                        <input id="email" class="form-control form-control-sm" type="text" id="cod" [(ngModel)]="cliente.email" name="#cliente.email">
+                    </div>
+
+                </div>
+                <div class="form-row col-12">
+                    <div class="col-6 mb-3">
+                        <label for="fijo" style="font-weight: bold;">Fijo :</label>
+                        <input id="fijo" class="form-control form-control-sm" type="text" id="cod" placeholder="Mínimo 7 dig." [(ngModel)]="cliente.fijo" name="#cliente.fijo" (ngModelChange)="validarTelf(cliente.fijo)" autocomplete="off" minlength="7">
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label for="movil" style="font-weight: bold;">Movil :</label>
+                        <input id="movil" class="form-control form-control-sm" type="text" id="nom" placeholder="Mínimo 9 dig." [(ngModel)]="cliente.movil" name="#cliente.movil" (ngModelChange)="validarMovil(cliente.movil)" autocomplete="off" minlength="9">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-warning btn-sm min" data-dismiss="modal" (click)="close()">Cancelar</button>
+        <button type="button" class="btn btn-primary btn-sm min" [disabled]="nuevocliente.form.invalid" style="cursor: pointer" (click)="InsertCliente()">Aceptar</button>
+    </div>
+</form>
